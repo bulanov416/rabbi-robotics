@@ -22,15 +22,10 @@ public class TeleOp10516 extends LinearOpMode {
 
     double scale_motor_power (double p_power)  //Scales joystick value to output appropriate motor power
     {                                          //Use like "scale_motor_power(gamepad1.left_stick_x)"
-        //
-        // Assume no scaling.
-        //
-        double l_scale = 0.0;
 
-        //
-        // Ensure the values are legal.
-        //
-        double l_power = Range.clip (p_power, -1, 1);
+        double l_scale = 0.0; // Assume no scaling.
+
+        double l_power = Range.clip (p_power, -1, 1); // Ensure the values are legal.
 
         double[] l_array =
                 { 0.00, 0.05, 0.09, 0.10, 0.12
@@ -39,25 +34,19 @@ public class TeleOp10516 extends LinearOpMode {
                         , 1.00, 1.00
                 };
 
-        //
-        // Get the corresponding index for the specified argument/parameter.
-        //
-        int l_index = (int) (l_power * 16.0);
-        if (l_index < 0)
-        {
+        int l_index = (int) (l_power * 16.0); // Get the corresponding index for the specified argument/parameter.
+
+        if (l_index < 0) {
             l_index = -l_index;
         }
-        else if (l_index > 16)
-        {
+        else if (l_index > 16) {
             l_index = 16;
         }
 
-        if (l_power < 0)
-        {
+        if (l_power < 0) {
             l_scale = -l_array[l_index];
         }
-        else
-        {
+        else {
             l_scale = l_array[l_index];
         }
 
@@ -65,42 +54,42 @@ public class TeleOp10516 extends LinearOpMode {
 
     }
 
-    @Override public void runOpMode ()
-
-    {
+    @Override public void runOpMode () {
         while(true) {
 
             l = hardwareMap.dcMotor.get("l");
-        r = hardwareMap.dcMotor.get("r");
-        rb = hardwareMap.dcMotor.get("rb");
-        lb = hardwareMap.dcMotor.get("lb");
-        fly1 = hardwareMap.dcMotor.get("fly1");
-        fly2 = hardwareMap.dcMotor.get("fly2");
-        bring = hardwareMap.servo.get("bring");
-        clasp2 = hardwareMap.servo.get("clasp2");
-        clasp1 = hardwareMap.servo.get("clasp1");
+            r = hardwareMap.dcMotor.get("r");
+            rb = hardwareMap.dcMotor.get("rb");
+            lb = hardwareMap.dcMotor.get("lb");
+            fly1 = hardwareMap.dcMotor.get("fly1");
+            fly2 = hardwareMap.dcMotor.get("fly2");
+            bring = hardwareMap.servo.get("bring");
+            clasp2 = hardwareMap.servo.get("clasp2");
+            clasp1 = hardwareMap.servo.get("clasp1");
 
-        fly2.setDirection(DcMotor.Direction.REVERSE);
-        r.setDirection(DcMotor.Direction.REVERSE);
-        rb.setDirection(DcMotor.Direction.REVERSE);
+            fly2.setDirection(DcMotor.Direction.REVERSE);
+            r.setDirection(DcMotor.Direction.REVERSE);
+            rb.setDirection(DcMotor.Direction.REVERSE);
 
-        float l_gp1_left_stick_y = gamepad1.left_stick_y;
-        float l_left_drive_power
-                = (float) scale_motor_power(l_gp1_left_stick_y);
+            float l_gp1_left_stick_y = gamepad1.left_stick_y;
+            float l_left_drive_power
+                    = (float) scale_motor_power(l_gp1_left_stick_y);
 
-        float l_gp1_right_stick_y = gamepad1.right_stick_y;
-        float l_right_drive_power
-                = (float) scale_motor_power(l_gp1_right_stick_y);
+            float l_gp1_right_stick_y = gamepad1.right_stick_y;
+            float l_right_drive_power
+                    = (float) scale_motor_power(l_gp1_right_stick_y);
 
-        r.setPower(l_right_drive_power);
-        l.setPower(l_left_drive_power);
-        rb.setPower(l_right_drive_power);
-        lb.setPower(l_left_drive_power);
+            r.setPower(l_right_drive_power);
+            l.setPower(l_left_drive_power);
+            rb.setPower(l_right_drive_power);
+            lb.setPower(l_left_drive_power);
+
             while (gamepad1.dpad_up) {
+
                 fly1.setPower(1);
                 fly2.setPower(1);
-            }
 
+            }
 
             //When button a is pressed, the ball function is executed.
             if (gamepad2.dpad_down) {
