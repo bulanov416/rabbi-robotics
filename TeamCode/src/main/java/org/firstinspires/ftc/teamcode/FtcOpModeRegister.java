@@ -78,9 +78,11 @@ public class FtcOpModeRegister implements OpModeRegister {
          * When we register OpModes, we use Annotations.
          * The syntax is as follows:
          * manager.register("OpModeName", OpModeName.class);
+         * Until Alex gets back, we'll keep the 2 newest OpModes registered.
          */
         AnnotatedOpModeRegistrar.register(manager);
         manager.register("Drive", Drive.class);
+        manager.register("TeleOp10516", TeleOp10516.class);
 
         /**
          * Any manual OpMode class registrations should go here.
