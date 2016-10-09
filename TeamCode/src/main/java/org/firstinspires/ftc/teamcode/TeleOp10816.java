@@ -103,11 +103,11 @@ public class TeleOp10816 extends LinearOpMode {
 
             float l_gp1_left_stick_y = gamepad1.left_stick_y;
             float l_left_drive_power
-                    = scale_motor_power(l_gp1_left_stick_y);
+                    = scale_motor_power((double) l_gp1_left_stick_y, 0.05);
 
             float l_gp1_right_stick_y = gamepad1.right_stick_y;
             float l_right_drive_power
-                    = scale_motor_power(l_gp1_right_stick_y);
+                    = scale_motor_power((double) l_gp1_right_stick_y, 0.05);
 
             r.setPower(l_right_drive_power);
             l.setPower(l_left_drive_power);
