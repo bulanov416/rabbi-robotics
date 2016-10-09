@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "Drive")
+@TeleOp(name = "TeleOp 10/5/16")
 public class TeleOp10516 extends LinearOpMode {
 
     DcMotor l, r; // always shorten these!
