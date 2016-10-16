@@ -1,10 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.util.ThreadPool;
+
+import java.util.Arrays;
 
 /**
  * Created by Nathan on 10/16/2016.
@@ -13,6 +17,8 @@ public class TeleOpButtonPusher extends LinearOpMode {
 
     DcMotor l, r, lb, rb;
     Servo buttonpusher;
+    ColorSensor colorSensor;
+    int beacon_left_button_pos, beacon_right_button_pos, rest_position;
 
     public TeleOpButtonPusher() {}
 
@@ -35,7 +41,41 @@ public class TeleOpButtonPusher extends LinearOpMode {
             rb.setPower(right_power);
 
             if (gamepad1.right_trigger > 0 & gamepad1.left_trigger > 0) {
-                // Activate the ButtonPusher
+                int[] beaconColor = new int[4];
+                int[] beaconRed = new int[4];
+                boolean areWeRed;
+                beaconColor[0] = colorSensor.red();
+                beaconColor[1] = colorSensor.green();
+                beaconColor[2] = colorSensor.blue();
+                beaconColor[3] = colorSensor.alpha();
+                telemetry.addData("Select a team:", "L:Right, B:Left");
+                telemetry.update();
+
+                do {
+                    if (gamepad1.dpad_right) {
+                        areWeRed = false;
+                        telemetry.addData("We are: ", "BLUE");
+                    } else {
+                        areWeRed = true;
+                        telemetry.addData("We are:", "RED");
+                    }
+                    telemetry.update()
+                } while (!gamepad1.dpad_left || !gamepad1.dpad_right);
+
+                if (Arrays.equals(beaconColor, beaconRed)) {
+                    buttonpusher.setPosition(beacon_left_button_pos);
+                    telemetry.addData("Pushing left button", "");
+                    telemetry.update();
+                } else {
+                    buttonpusher.setPosition(beacon_right_button_pos);
+                    telemetry.addData("Pushing right button", "");
+                    telemetry.update();
+                }
+                Thread.sleep(50);
+                buttonpusher.setPosition(rest_position);
+                telemetry.addData("Button Push Successful. Release the triggers NOW.", "");
+                telemetry.update();
+                Thread.sleep(100);
             }
         }
     }
