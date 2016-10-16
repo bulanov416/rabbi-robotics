@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by Matan on 10/16/2016.
  */
+@TeleOp(name = "Four Wheel Drive")
 public class FourWheelDrive extends LinearOpMode {
     DcMotor l, r; // front motors
     DcMotor lb, rb; // back motors
@@ -40,21 +42,13 @@ public class FourWheelDrive extends LinearOpMode {
             lb = hardwareMap.dcMotor.get("lb");
             rb = hardwareMap.dcMotor.get("br");
 
-            float power = scale_motor_power((double) gamepad1.right_stick_y, 0.05);
-            float direction = scale_motor_power((double) gamepad1.left_stick_x, 0.05);
+            float left_power = scale_motor_power((double) gamepad1.left_stick_y, 0.05);
+            float right_power = scale_motor_power((double) gamepad1.right_stick_x, 0.05);
 
-            if (direction > 0) { // right
-                l.setPower(power);
-                lb.setPower(power);
-            } else if (direction < 0){ // left
-                r.setPower(power);
-                rb.setPower(power);
-            } else { // strait
-                r.setPower(power);
-                l.setPower(power);
-                rb.setPower(power);
-                lb.setPower(power);
-            }
+            l.setPower(left_power);
+            lb.setPower(left_power);
+            r.setPower(right_power);
+            rb.setPower(right_power);
 
         }
     }

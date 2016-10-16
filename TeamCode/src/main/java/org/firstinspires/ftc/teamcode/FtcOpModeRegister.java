@@ -84,6 +84,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("Drive", Drive.class);
         manager.register("TeleOp 10/5/16", TeleOp10516.class);
         manager.register("TeleOp 10/8/16", TeleOp10816.class);
+        manager.register("Four Wheel Drive", FourWheelDrive.class);
 
         /**
          * Any manual OpMode class registrations should go here.
