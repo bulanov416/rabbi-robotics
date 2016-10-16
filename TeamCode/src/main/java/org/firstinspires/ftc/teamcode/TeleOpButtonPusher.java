@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -15,13 +16,31 @@ public class TeleOpButtonPusher extends LinearOpMode {
 
     public TeleOpButtonPusher() {}
 
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         gamepad1.setJoystickDeadzone((float) 0.05);
 
-        
+        l  = hardwareMap.dcMotor.get("l");
+        r  = hardwareMap.dcMotor.get("r");
+        lb = hardwareMap.dcMotor.get("lb");
+        rb = hardwareMap.dcMotor.get("br");
+
+        waitForStart();
+        while (true) {
+            float left_power = Range.clip(gamepad1.left_stick_y, -1, 1);
+            float right_power = Range.clip(gamepad1.right_stick_x, -1, 1);
+
+            l.setPower(left_power);
+            lb.setPower(left_power);
+            r.setPower(right_power);
+            rb.setPower(right_power);
+
+            if (gamepad1.right_trigger > 0 & gamepad1.left_trigger > 0) {
+                // Activate the ButtonPusher
+            }
+        }
     }
 
-    float scale_motor_power_redundant(double p_power, double deadzone) { // DcMotor.setPower needs a float
+    /* float scale_motor_power_redundant(double p_power, double deadzone) { // DcMotor.setPower needs a float
         // Simpler method of controlling the motor range
         p_power = Range.clip(p_power, -1, 1);
         double negative_power = 0, positive_power = 0;
@@ -43,6 +62,6 @@ public class TeleOpButtonPusher extends LinearOpMode {
         else {
             return 0;
         }
-    }
+    } */
 
 }
