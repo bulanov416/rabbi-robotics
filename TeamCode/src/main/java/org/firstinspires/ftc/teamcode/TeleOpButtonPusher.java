@@ -3,11 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.util.ThreadPool;
-
 import java.util.Arrays;
 
 /**
@@ -59,7 +56,7 @@ public class TeleOpButtonPusher extends LinearOpMode {
                         areWeRed = true;
                         telemetry.addData("We are:", "RED");
                     }
-                    telemetry.update()
+                    telemetry.update();
                 } while (!gamepad1.dpad_left || !gamepad1.dpad_right);
 
                 if (Arrays.equals(beaconColor, beaconRed)) {
