@@ -16,6 +16,7 @@ public class TeleOpButtonPusher extends LinearOpMode {
     Servo buttonpusher;
     ColorSensor colorSensor;
     int beacon_left_button_pos, beacon_right_button_pos, rest_position;
+    int[] beaconRed = new int[4];
 
     public TeleOpButtonPusher() {}
 
@@ -26,6 +27,9 @@ public class TeleOpButtonPusher extends LinearOpMode {
         r  = hardwareMap.dcMotor.get("r");
         lb = hardwareMap.dcMotor.get("lb");
         rb = hardwareMap.dcMotor.get("br");
+        buttonpusher = hardwareMap.servo.get("buttonpusher servo");
+        colorSensor = hardwareMap.colorSensor.get("buttonpusher color");
+
 
         waitForStart();
         while (true) {
@@ -39,8 +43,7 @@ public class TeleOpButtonPusher extends LinearOpMode {
 
             if (gamepad1.right_trigger > 0 & gamepad1.left_trigger > 0) {
                 int[] beaconColor = new int[4];
-                int[] beaconRed = new int[4];
-                boolean areWeRed;
+                boolean weAreRed;
                 beaconColor[0] = colorSensor.red();
                 beaconColor[1] = colorSensor.green();
                 beaconColor[2] = colorSensor.blue();
@@ -50,22 +53,30 @@ public class TeleOpButtonPusher extends LinearOpMode {
 
                 do {
                     if (gamepad1.dpad_right) {
-                        areWeRed = false;
+                        weAreRed = false;
                         telemetry.addData("We are: ", "BLUE");
                     } else {
-                        areWeRed = true;
+                        weAreRed = true;
                         telemetry.addData("We are:", "RED");
                     }
                     telemetry.update();
                 } while (!gamepad1.dpad_left || !gamepad1.dpad_right);
 
-                if (Arrays.equals(beaconColor, beaconRed)) {
+                if (Arrays.equals(beaconColor, beaconRed) & weAreRed) {
                     buttonpusher.setPosition(beacon_left_button_pos);
                     telemetry.addData("Pushing left button", "");
                     telemetry.update();
-                } else {
+                } else if (Arrays.equals(beaconColor, beaconRed) & !weAreRed){
                     buttonpusher.setPosition(beacon_right_button_pos);
                     telemetry.addData("Pushing right button", "");
+                    telemetry.update();
+                } else if (!Arrays.equals(beaconColor, beaconRed) & weAreRed) {
+                    buttonpusher.setPosition(beacon_right_button_pos);
+                    telemetry.addData("Pushing right button", "");
+                    telemetry.update();
+                } else if (!Arrays.equals(beaconColor, beaconRed) & !weAreRed) {
+                    buttonpusher.setPosition(beacon_left_button_pos);
+                    telemetry.addData("Pushing left button", "");
                     telemetry.update();
                 }
                 Thread.sleep(50);
