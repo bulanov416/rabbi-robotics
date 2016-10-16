@@ -26,30 +26,35 @@ public class FourWheelDrive extends LinearOpMode {
         // return the final power
         if (positive_power > 0) {
             return (float) positive_power;
-        }
-        else if (negative_power < 0) {
+        } else if (negative_power < 0) {
             return (float) negative_power;
-        }
-        else {
+        } else {
             return 0;
         }
     }
-
     @Override
     public void runOpMode() throws InterruptedException {
         while (true) {
-            l = hardwareMap.dcMotor.get("l");
-            r = hardwareMap.dcMotor.get("r");
+            l  = hardwareMap.dcMotor.get("l");
+            r  = hardwareMap.dcMotor.get("r");
             lb = hardwareMap.dcMotor.get("lb");
             rb = hardwareMap.dcMotor.get("br");
 
-            float right_power = scale_motor_power((double) gamepad1.right_stick_y, 0.05);
-            float left_power = scale_motor_power((double) gamepad1.left_stick_y, 0.05);
+            float power = scale_motor_power((double) gamepad1.right_stick_y, 0.05);
+            float direction = scale_motor_power((double) gamepad1.left_stick_x, 0.05);
 
-            r.setPower(right_power);
-            rb.setPower(right_power);
-            l.setPower(left_power);
-            lb.setPower(left_power);
+            if (direction > 0) { // right
+                l.setPower(power);
+                lb.setPower(power);
+            } else if (direction < 0){ // left
+                r.setPower(power);
+                rb.setPower(power);
+            } else { // strait
+                r.setPower(power);
+                l.setPower(power);
+                rb.setPower(power);
+                lb.setPower(power);
+            }
 
         }
     }
