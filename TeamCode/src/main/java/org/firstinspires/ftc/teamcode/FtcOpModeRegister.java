@@ -83,7 +83,11 @@ public class FtcOpModeRegister implements OpModeRegister {
         AnnotatedOpModeRegistrar.register(manager);
         manager.register("Drive", Drive.class); // Once TeleO10816 is tested, remove this
         manager.register("TeleOp 10/8/16", TeleOp10816.class);
+<<<<<<< HEAD
         manager.register("Servo Move Proof of Concept", ServoMovePoC.class);
+=======
+        manager.register("Four Wheel Drive", FourWheelDrive.class);
+>>>>>>> refs/remotes/origin/master
 
         /**
          * Any manual OpMode class registrations should go here.

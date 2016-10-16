@@ -1,27 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 /**
- * Created by Nathan on 10/16/2016.
+ * Created by Matan on 10/16/2016.
  */
-public class TeleOpButtonPusher extends LinearOpMode {
+@TeleOp(name = "Four Wheel Drive")
+public class FourWheelDrive extends LinearOpMode {
+    DcMotor l, r; // front motors
+    DcMotor lb, rb; // back motors
 
-    DcMotor l, r, lb, rb;
-    Servo buttonpusher;
-
-    public TeleOpButtonPusher() {}
-
-    public void runOpMode() {
-        gamepad1.setJoystickDeadzone((float) 0.05);
-
-        
-    }
-
-    float scale_motor_power_redundant(double p_power, double deadzone) { // DcMotor.setPower needs a float
+    float scale_motor_power(double p_power, double deadzone) { // DcMotor.setPower needs a float
         // Simpler method of controlling the motor range
         p_power = Range.clip(p_power, -1, 1);
         double negative_power = 0, positive_power = 0;
@@ -36,13 +28,28 @@ public class TeleOpButtonPusher extends LinearOpMode {
         // return the final power
         if (positive_power > 0) {
             return (float) positive_power;
-        }
-        else if (negative_power < 0) {
+        } else if (negative_power < 0) {
             return (float) negative_power;
-        }
-        else {
+        } else {
             return 0;
         }
     }
+    @Override
+    public void runOpMode() throws InterruptedException {
+        while (true) {
+            l  = hardwareMap.dcMotor.get("l");
+            r  = hardwareMap.dcMotor.get("r");
+            lb = hardwareMap.dcMotor.get("lb");
+            rb = hardwareMap.dcMotor.get("br");
 
+            float left_power = scale_motor_power((double) gamepad1.left_stick_y, 0.05);
+            float right_power = scale_motor_power((double) gamepad1.right_stick_x, 0.05);
+
+            l.setPower(left_power);
+            lb.setPower(left_power);
+            r.setPower(right_power);
+            rb.setPower(right_power);
+
+        }
+    }
 }

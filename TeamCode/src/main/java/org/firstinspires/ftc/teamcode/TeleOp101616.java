@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by Matan on 10/16/2016.
  */
 @TeleOp(name="TeleOp 10/16/16")
-public class TeleOp101616 extends LinearOpMode {`
+public class TeleOp101616 extends LinearOpMode {
     // declare motors and servos
     DcMotor motor1, motor2, motor3, motor4, motor5;
     Servo servo1, servo2;
@@ -28,6 +28,7 @@ public class TeleOp101616 extends LinearOpMode {`
 
         // increment / decrement power
         for (int i = 0; i < 12; i++) {
+            // if we're halfway through, start decrementing
             if (i > 6) {
                 power -= 10;
             } else {
