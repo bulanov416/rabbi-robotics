@@ -1,17 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.util.ThreadPool;
 
 import java.util.Arrays;
 
 /**
  * Created by Nathan on 10/19/2016.
  */
+@Autonomous(name="Autonomous Button Pusher", group="AutoOps")
 public class AutoButtonPusher extends LinearOpMode {
 
     DcMotor l, r, lb, rb;

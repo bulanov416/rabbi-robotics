@@ -33,6 +33,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
+import com.qualcomm.robotcore.eventloop.opmode.OpModeMeta;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 
@@ -79,14 +80,13 @@ public class FtcOpModeRegister implements OpModeRegister {
          * When we register OpModes, we use Annotations.
          * The syntax is as follows:
          * manager.register("OpMode Display Name", OpModeName.class);
-         * Until Alex gets back, we'll keep the 2 newest OpModes registered.
+         * Only register an OpMode if it is in a testing or working state!
          */
         AnnotatedOpModeRegistrar.register(manager);
-        manager.register("Drive", Drive.class); // Once TeleO10816 is tested, remove this
-        manager.register("TeleOp 10/8/16", TeleOp10816.class);
-        manager.register("Servo Move Proof of Concept", ServoMovePoC.class);
-        manager.register("Four Wheel Drive", FourWheelDrive.class);
-        manager.register("Assisted TeleOp Button Pusher", TeleOpButtonPusher.class);
+        manager.register("Drive", Drive.class); // TeleOp
+        manager.register("Four Wheel Drive", FourWheelDrive.class); // TeleOp
+        manager.register("Assisted TeleOp Button Pusher", TeleOpButtonPusher.class); // TeleOp
+        manager.register("Autonomous Button Pusher", AutoButtonPusher.class);
 
         /**
          * Any manual OpMode class registrations should go here.
