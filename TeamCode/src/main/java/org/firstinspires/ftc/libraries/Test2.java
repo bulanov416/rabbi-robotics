@@ -22,12 +22,16 @@ public class Test2 {
     private String name;
     private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MMM/yyyy");
 
-    public Test2(String name) throws IOException {
+    public Test2(String name) {
         this.name = name+System.currentTimeMillis();
         String path = name+".txt";
         File file = new File(path);
         if (!file.exists()) {
-            file.createNewFile();
+            try {
+                file.createNewFile();
+            }
+            catch (IOException e) {
+            }
         }
         this.write("Log file name: " + this.name);
         this.write(System.getProperty("line.separator") + "Launched at: " + sdf.format(System.currentTimeMillis()));
