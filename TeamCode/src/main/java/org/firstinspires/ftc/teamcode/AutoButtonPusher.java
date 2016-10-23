@@ -25,6 +25,7 @@ public class AutoButtonPusher extends LinearOpMode {
         waitForStart();
 
         // code that runs after the start button is pressed
+        pushButton();
     }
 
     public void drive(double power, double time) throws InterruptedException {
