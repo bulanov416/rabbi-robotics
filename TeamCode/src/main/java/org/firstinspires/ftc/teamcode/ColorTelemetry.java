@@ -15,6 +15,7 @@ public class ColorTelemetry extends LinearOpMode {
         while (true) {
             colorSensor = hardwareMap.colorSensor.get("color");
             telemetry.addData("output", colorSensor);
+            telemetry.update();
         }
     }
 }
