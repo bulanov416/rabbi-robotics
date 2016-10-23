@@ -33,7 +33,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
-import com.qualcomm.robotcore.eventloop.opmode.OpModeMeta;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 
@@ -88,6 +87,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("Assisted TeleOp Button Pusher", TeleOpButtonPusher.class); // TeleOp
         manager.register("ColorTelemetry", ColorTelemetry.class); // TeleOp
         manager.register("UpDown", UpDown.class); // TeleOp
+        manager.register("Joystick Scale Discrepancy Logging", JoystickInputDebugLogged.class); // TeleOp
         manager.register("Drive to and Push Button", WorkingBeaconPusher.class); // Autonomous
 
         /**
