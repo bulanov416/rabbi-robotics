@@ -31,7 +31,6 @@ public class ColorTelemetry extends LinearOpMode {
 
 
             telemetry.update();
-            idle(); // no idea why.
         }
     }
 }
