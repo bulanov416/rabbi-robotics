@@ -88,6 +88,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("Assisted TeleOp Button Pusher", TeleOpButtonPusher.class); // TeleOp
         manager.register("Autonomous Button Pusher", AutoButtonPusher.class);
         manager.register("ColorTelemetry", ColorTelemetry.class);
+        manager.register("UpDown", UpDown.class);
 
         /**
          * Any manual OpMode class registrations should go here.
