@@ -86,9 +86,9 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("Drive", Drive.class); // TeleOp
         manager.register("Four Wheel Drive", FourWheelDrive.class); // TeleOp
         manager.register("Assisted TeleOp Button Pusher", TeleOpButtonPusher.class); // TeleOp
-        manager.register("Autonomous Button Pusher", AutoButtonPusher.class);
-        manager.register("ColorTelemetry", ColorTelemetry.class);
-        manager.register("UpDown", UpDown.class);
+        manager.register("ColorTelemetry", ColorTelemetry.class); // TeleOp
+        manager.register("UpDown", UpDown.class); // TeleOp
+        manager.register("Drive to and Push Button", WorkingBeaconPusher.class); // Autonomous
 
         /**
          * Any manual OpMode class registrations should go here.

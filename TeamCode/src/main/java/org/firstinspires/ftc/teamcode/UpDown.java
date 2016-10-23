@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
@@ -11,10 +12,13 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name = "Up Down")
 public class UpDown extends LinearOpMode {
     DcMotor motor;
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         gamepad1.setJoystickDeadzone((float) 0.05);
         motor = hardwareMap.dcMotor.get("motor");
-        while (true) {
+
+        // in Java, while (true) can only exit by throwing an exception. This is not OK.
+        // Instead, we use while (opModeIsActive()), which exits when the OpMode is closed.
+        while (opModeIsActive()) {
             double power = Range.clip(gamepad1.left_stick_y, -1, 1);
             motor.setPower(power);
         }
