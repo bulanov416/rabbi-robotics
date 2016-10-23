@@ -13,9 +13,9 @@ public class AutoButtonPusher extends LinearOpMode {
 
     DcMotor l, r, lb, rb;
     Servo pusher;
-    ColorSensor color;
+    ColorSensor colorSensor = hardwareMap.colorSensor.get("color");
     int beacon_left_button_pos = 135, beacon_right_button_pos = 45, rest_position = 90;
-    int[] beacon_red = new int[4];
+    int[] beacon_red = {256, 0, 0, 1};
 
     public AutoButtonPusher() {}
 
@@ -25,6 +25,7 @@ public class AutoButtonPusher extends LinearOpMode {
         waitForStart();
 
         // code that runs after the start button is pressed
+
         pushButton();
     }
 
@@ -56,10 +57,10 @@ public class AutoButtonPusher extends LinearOpMode {
     public void pushButton() throws InterruptedException {
         int[] beacon_color = new int[4];
         boolean weAreRed = true;
-        beacon_color[0] = color.red();
-        beacon_color[1] = color.green();
-        beacon_color[2] = color.blue();
-        beacon_color[3] = color.alpha();
+        beacon_color[0] = colorSensor.red();
+        beacon_color[1] = colorSensor.green();
+        beacon_color[2] = colorSensor.blue();
+        beacon_color[3] = colorSensor.alpha();
 
         /* This statement assumes that we are the RED team.
            This statement also assumes that the color sensor is looking at the left side of the beacon.
@@ -88,7 +89,8 @@ public class AutoButtonPusher extends LinearOpMode {
         lb = hardwareMap.dcMotor.get("lb");
         rb = hardwareMap.dcMotor.get("rb");
         pusher = hardwareMap.servo.get("pusher");
-        color = hardwareMap.colorSensor.get("color");
+        colorSensor = hardwareMap.colorSensor.get("color");
         // set the beacon_red values here
+
     }
 }

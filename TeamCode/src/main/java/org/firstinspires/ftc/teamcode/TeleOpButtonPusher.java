@@ -40,7 +40,7 @@ public class TeleOpButtonPusher extends LinearOpMode {
             lb.setPower(left_power);
             r.setPower(right_power);
             rb.setPower(right_power);
-
+            
             if (gamepad1.right_trigger > 0 & gamepad1.left_trigger > 0) {
                 int[] beaconColor = new int[4];
                 boolean weAreRed;
