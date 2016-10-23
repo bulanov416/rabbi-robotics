@@ -12,7 +12,9 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 public class ColorTelemetry extends LinearOpMode {
     ColorSensor colorSensor;
     public void runOpMode() {
-        colorSensor = hardwareMap.colorSensor.get("color");
-        telemetry.addData("output", colorSensor);
+        while (true) {
+            colorSensor = hardwareMap.colorSensor.get("color");
+            telemetry.addData("output", colorSensor);
+        }
     }
 }
