@@ -26,6 +26,7 @@ public class ColorTelemetry extends LinearOpMode {
 
             telemetry.addData("red", red);
             telemetry.addData("blue", blue);
+            telemetry.addData("dominant color", red > blue ? "red" : "blue")
             telemetry.addData("all together now", colorSensor.argb());
 
 
