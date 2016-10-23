@@ -1,17 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.libraries.Test2;
-
-import java.io.IOException;
+import org.firstinspires.ftc.libraries.FileLogger;
 
 /**
  * Created by alexbulanov on 9/28/16.
@@ -75,11 +68,11 @@ public class Drive extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        Test2 logger = new Test2("LogTestInital");
+        FileLogger logger = new FileLogger("OpModeDriveLog");
         logger.write("test");
         while (true) {
 
-            logger.write("WhileLoop");
+            logger.write("While Loop Cycle");
             l = hardwareMap.dcMotor.get("l");
             r = hardwareMap.dcMotor.get("r");
             rb = hardwareMap.dcMotor.get("rb");

@@ -9,41 +9,42 @@ import java.text.SimpleDateFormat;
 /**
  * Created by Levi on 10/23/2016.
  */
-public class Test2 {
+public class FileLogger {
 
     /**
-     This class is intended to facilitate extracting code output from FTC runtime cycles.
-     It allows for each separate class to have its own output file (and in fact requires this),
-     prints out a human formatted time and a String as specified by the WriteLine(String line) method.
-     Simply instantiate the FTCLogger object with the desired file name (simply the name, not the type or format)
-     Then, use the WriteLine() method to "print" a line to the file. Will save after each write, so
-     fatal crashes should not interfere.
+     * This class allows for file-based logging on a per-class level.
+     * It forces each OpMode to have its own log, which is good logging practice in this case.
+     * To use, assign a variable to a <code>new FileLogger("filename");</code>. Do not include .txt!
      **/
     private String name;
-    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MMM/yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/dd/yyyy"); // using American date format
 
-    public Test2(String name) {
-        this.name = name+System.currentTimeMillis();
-        String path = name+".txt";
+    public FileLogger(String name) {
+        /**
+         * Constructor.
+         * @param name (required) The name of the output file.
+         */
+        this.name = name + System.currentTimeMillis();
+        String path = name + ".txt";
         File file = new File(path);
         if (!file.exists()) {
             try {
                 file.createNewFile();
-            }
-            catch (IOException e) {
-            }
+            } catch (IOException e) {/* ignore it */}
         }
-        this.write("Log file name: " + this.name);
+        this.write("Name: " + this.name); // once we know the logger works, we should remove this
         this.write(System.getProperty("line.separator") + "Launched at: " + sdf.format(System.currentTimeMillis()));
         this.write(System.getProperty("line.separator") + "<----------------------------------------------->");
-
     }
+
+
+    /**
+     Writes a new line to the file, and saves it.
+    **/
     public void write(String line){
         try {
-
             String fpath = name+".txt";
             File file = new File(fpath);
-
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
             String time = sdf.format(System.currentTimeMillis());
@@ -53,11 +54,8 @@ public class Test2 {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public String getName() {
-        return this.name;
-    }
+    public String getName() {return this.name;}
 
 }
