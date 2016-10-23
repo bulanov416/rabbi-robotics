@@ -9,6 +9,10 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.libraries.Test2;
+
+import java.io.IOException;
+
 /**
  * Created by alexbulanov on 9/28/16.
  */
@@ -70,11 +74,12 @@ public class Drive extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode()
-
-    {
+    public void runOpMode() {
+        Test2 logger = new Test2("LogTestInital");
+        logger.write("test");
         while (true) {
 
+            logger.write("WhileLoop");
             l = hardwareMap.dcMotor.get("l");
             r = hardwareMap.dcMotor.get("r");
             rb = hardwareMap.dcMotor.get("rb");
