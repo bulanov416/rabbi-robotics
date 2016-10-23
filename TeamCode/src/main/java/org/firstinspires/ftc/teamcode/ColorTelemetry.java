@@ -21,8 +21,8 @@ public class ColorTelemetry extends LinearOpMode {
             colorSensor = hardwareMap.colorSensor.get("color");
 
             colorValues = Integer.toString(colorSensor.argb());
-            red = Integer.valueOf(colorValues.substring(2, 3));
-            blue = Integer.valueOf(colorValues.substring(6, 7));
+            red = Integer.valueOf(colorValues.substring(2, 4));
+            blue = Integer.valueOf(colorValues.substring(6, 8));
 
             telemetry.addData("red", red);
             telemetry.addData("blue", blue);
