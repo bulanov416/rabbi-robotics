@@ -6,12 +6,8 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-
 import java.util.Arrays;
 
-/**
- * Created by Nathan on 10/19/2016.
- */
 @Autonomous(name="Autonomous Button Pusher", group="AutoOps")
 public class AutoButtonPusher extends LinearOpMode {
 
@@ -19,12 +15,16 @@ public class AutoButtonPusher extends LinearOpMode {
     Servo buttonpusher;
     ColorSensor colorSensor;
     int beacon_left_button_pos = 135, beacon_right_button_pos = 45, rest_position = 90;
-    int[] beaconRed = new int[4];
+    int[] beacon_red = new int[4];
 
     public AutoButtonPusher() {}
 
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
+        setupRobot(); // method for setting up our hardware
 
+        waitForStart();
+
+        // code that runs after the start button is pressed
     }
 
     public void drive(double power, double time) throws InterruptedException {
@@ -53,30 +53,27 @@ public class AutoButtonPusher extends LinearOpMode {
     }
 
     public void pushButton() throws InterruptedException {
-        int[] beaconColor = new int[4];
+        int[] beacon_color = new int[4];
         boolean weAreRed = true;
-        beaconColor[0] = colorSensor.red();
-        beaconColor[1] = colorSensor.green();
-        beaconColor[2] = colorSensor.blue();
-        beaconColor[3] = colorSensor.alpha();
+        beacon_color[0] = colorSensor.red();
+        beacon_color[1] = colorSensor.green();
+        beacon_color[2] = colorSensor.blue();
+        beacon_color[3] = colorSensor.alpha();
 
-        if (Arrays.equals(beaconColor, beaconRed) & weAreRed) {
-            buttonpusher.setPosition(Range.scale(beacon_left_button_pos, 0, 185, 0, 255));
-            telemetry.addData("Pushing left button", "");
+        /* This statement assumes that we are the RED team.
+           This statement also assumes that the color sensor is looking at the left side of the beacon.
+           TODO be like Leila Goodman and assume nothing. fix this if statement!
+           You'll need to create a special blue class - we can't tell the OpMode which team we're on. */
+        if (Arrays.equals(beacon_color, beacon_red)) {
+            buttonpusher.setPosition(beacon_left_button_pos);
+            telemetry.addData("Pushed Button", "LEFT");
             telemetry.update();
-        } else if (Arrays.equals(beaconColor, beaconRed) & !weAreRed){
-            buttonpusher.setPosition(Range.scale(beacon_right_button_pos, 0, 185, 0, 255));
-            telemetry.addData("Pushing right button", "");
-            telemetry.update();
-        } else if (!Arrays.equals(beaconColor, beaconRed) & weAreRed) {
-            buttonpusher.setPosition(Range.scale(beacon_right_button_pos, 0, 185, 0, 255));
-            telemetry.addData("Pushing right button", "");
-            telemetry.update();
-        } else if (!Arrays.equals(beaconColor, beaconRed) & !weAreRed) {
-            buttonpusher.setPosition(Range.scale(beacon_left_button_pos, 0, 185, 0, 255));
-            telemetry.addData("Pushing left button", "");
+        } else {
+            buttonpusher.setPosition(beacon_right_button_pos);
+            telemetry.addData("Pushed button", "RIGHT");
             telemetry.update();
         }
+
         Thread.sleep(50);
         buttonpusher.setPosition(Range.scale(rest_position, 0, 185, 0, 255));
         telemetry.addData("Button Push Successful. Release the triggers NOW.", "");
@@ -84,4 +81,13 @@ public class AutoButtonPusher extends LinearOpMode {
         Thread.sleep(100);
     }
 
+    public void setupRobot() {
+        l  = hardwareMap.dcMotor.get("l");
+        r  = hardwareMap.dcMotor.get("r");
+        lb = hardwareMap.dcMotor.get("lb");
+        rb = hardwareMap.dcMotor.get("br");
+        buttonpusher = hardwareMap.servo.get("buttonpusher servo");
+        colorSensor = hardwareMap.colorSensor.get("buttonpusher color");
+        // set the beacon_red values here
+    }
 }
