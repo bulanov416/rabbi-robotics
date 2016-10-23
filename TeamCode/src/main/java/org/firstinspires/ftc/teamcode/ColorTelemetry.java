@@ -17,7 +17,7 @@ public class ColorTelemetry extends LinearOpMode {
     int blue;
     String colorValues;
     public void runOpMode() throws InterruptedException {
-        while (opModeIsActive()) {
+        while (true) {
             colorSensor = hardwareMap.colorSensor.get("color");
 
             colorValues = Integer.toString(colorSensor.argb());
