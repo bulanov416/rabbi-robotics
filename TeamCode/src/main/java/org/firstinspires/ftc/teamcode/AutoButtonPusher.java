@@ -12,8 +12,8 @@ import java.util.Arrays;
 public class AutoButtonPusher extends LinearOpMode {
 
     DcMotor l, r, lb, rb;
-    Servo buttonpusher;
-    ColorSensor colorSensor;
+    Servo pusher;
+    ColorSensor color;
     int beacon_left_button_pos = 135, beacon_right_button_pos = 45, rest_position = 90;
     int[] beacon_red = new int[4];
 
@@ -55,27 +55,27 @@ public class AutoButtonPusher extends LinearOpMode {
     public void pushButton() throws InterruptedException {
         int[] beacon_color = new int[4];
         boolean weAreRed = true;
-        beacon_color[0] = colorSensor.red();
-        beacon_color[1] = colorSensor.green();
-        beacon_color[2] = colorSensor.blue();
-        beacon_color[3] = colorSensor.alpha();
+        beacon_color[0] = color.red();
+        beacon_color[1] = color.green();
+        beacon_color[2] = color.blue();
+        beacon_color[3] = color.alpha();
 
         /* This statement assumes that we are the RED team.
            This statement also assumes that the color sensor is looking at the left side of the beacon.
            TODO be like Leila Goodman and assume nothing. fix this if statement!
            You'll need to create a special blue class - we can't tell the OpMode which team we're on. */
         if (Arrays.equals(beacon_color, beacon_red)) {
-            buttonpusher.setPosition(beacon_left_button_pos);
+            pusher.setPosition(beacon_left_button_pos);
             telemetry.addData("Pushed Button", "LEFT");
             telemetry.update();
         } else {
-            buttonpusher.setPosition(beacon_right_button_pos);
+            pusher.setPosition(beacon_right_button_pos);
             telemetry.addData("Pushed button", "RIGHT");
             telemetry.update();
         }
 
         Thread.sleep(50);
-        buttonpusher.setPosition(Range.scale(rest_position, 0, 185, 0, 255));
+        pusher.setPosition(Range.scale(rest_position, 0, 185, 0, 255));
         telemetry.addData("Button Push Successful. Release the triggers NOW.", "");
         telemetry.update();
         Thread.sleep(100);
@@ -85,9 +85,9 @@ public class AutoButtonPusher extends LinearOpMode {
         l  = hardwareMap.dcMotor.get("l");
         r  = hardwareMap.dcMotor.get("r");
         lb = hardwareMap.dcMotor.get("lb");
-        rb = hardwareMap.dcMotor.get("br");
-        buttonpusher = hardwareMap.servo.get("buttonpusher servo");
-        colorSensor = hardwareMap.colorSensor.get("buttonpusher color");
+        rb = hardwareMap.dcMotor.get("rb");
+        pusher = hardwareMap.servo.get("pusher");
+        color = hardwareMap.colorSensor.get("color");
         // set the beacon_red values here
     }
 }
