@@ -56,23 +56,25 @@ public class WorkingBeaconPusher extends LinearOpMode {
 
     public void pushButton() throws InterruptedException {
         pusher.setPosition(rest_position);
+
+        // returns string in this format: "aarrggb". for example "1924873409"
         colorValues = Integer.toString(colorSensor.argb());
 
-        if (colorValues == "") {
+        if (colorValues == "") { // this occurs when the color changes too quickly
             red = 0;
             blue = 0;
         } else {
-
+            // extract the red and blue values from the string
             red = Integer.valueOf(colorValues.substring(2, 4));
             blue = Integer.valueOf(colorValues.substring(6, 8));
         }
-            // this statement assumes that we are on the red team, and the sensor is on the left
-            if (red > blue) {
-                pusher.setPosition(beacon_left_button_pos);
-            } else if (blue > red) {
-                pusher.setPosition(beacon_right_button_pos);
-            }
+        // this statement assumes that we are on the red team, and the sensor is on the left
+        if (red > blue) {
+            pusher.setPosition(beacon_left_button_pos);
+        } else if (blue > red) {
+            pusher.setPosition(beacon_right_button_pos);
         }
+    }
 
 
     public void setupRobot() {
