@@ -15,7 +15,7 @@ public class UpDown extends LinearOpMode {
         gamepad1.setJoystickDeadzone((float) 0.05);
         motor = hardwareMap.dcMotor.get("motor");
         while (true) {
-            float power = Range.clip(gamepad1.left_stick_y, -1, 1);
+            double power = Range.clip(gamepad1.left_stick_y, -1, 1);
             motor.setPower(power);
         }
     }
