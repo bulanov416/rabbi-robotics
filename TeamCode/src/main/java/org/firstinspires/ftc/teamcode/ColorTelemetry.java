@@ -13,15 +13,24 @@ import org.firstinspires.ftc.robotcontroller.internal.testcode.TestColorSensors;
 @TeleOp(name="ColorTelemetry")
 public class ColorTelemetry extends LinearOpMode {
     ColorSensor colorSensor;
-    public void runOpMode() {
-        while (true) {
+    int red;
+    int blue;
+    String colorValues;
+    public void runOpMode() throws InterruptedException {
+        while (opModeIsActive()) {
             colorSensor = hardwareMap.colorSensor.get("color");
-            telemetry.addData("red", colorSensor.red());
-            telemetry.addData("blue", colorSensor.blue());
-            telemetry.addData("green", colorSensor.green());
-            telemetry.addData("alpha", colorSensor.alpha());
+
+            colorValues = Integer.toString(colorSensor.argb());
+            red = Integer.valueOf(colorValues.substring(2, 3));
+            blue = Integer.valueOf(colorValues.substring(6, 7));
+
+            telemetry.addData("red", red);
+            telemetry.addData("blue", blue);
             telemetry.addData("all together now", colorSensor.argb());
+
+
             telemetry.update();
+            idle(); // no idea why.
         }
     }
 }
