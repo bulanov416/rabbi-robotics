@@ -1,52 +1,64 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import org.firstinspires.ftc.libraries.FileLogger;
 
-@TeleOp(name = "TeleOp 10/5/16")
-public class TeleOp10516 extends LinearOpMode {
+/**
+ * Created by alexbulanov on 9/28/16.
+ */
+@TeleOp(name = "Drive")
+public class Drive extends LinearOpMode {
 
-    DcMotor l, r; // always shorten these!
-    DcMotor lb, rb;
-    DcMotor fly1, fly2;
+    DcMotor l;
+    DcMotor r;
+    DcMotor lb;
+    DcMotor rb;
+   /* DcMotor fly1;
+    DcMotor fly2;
     Servo bring;
-    Servo clasp1, clasp2;
+    Servo clasp1;
+    Servo clasp2;
+*/
 
-
-    public TeleOp10516() {
+    public Drive() {
 
     }
 
-    double scale_motor_power (double p_power)  //Scales joystick value to output appropriate motor power
+    double scale_motor_power(double p_power)  //Scales joystick value to output appropriate motor power
     {                                          //Use like "scale_motor_power(gamepad1.left_stick_x)"
+        //
+        // Assume no scaling.
+        //
+        double l_scale = 0.0;
 
-        double l_scale = 0.0; // Assume no scaling.
-
-        double l_power = Range.clip (p_power, -1, 1); // Ensure the values are legal.
+        //
+        // Ensure the values are legal.
+        //
+        double l_power = Range.clip(p_power, -1, 1);
 
         double[] l_array =
-                { 0.00, 0.05, 0.09, 0.10, 0.12
+                {0.00, 0.05, 0.09, 0.10, 0.12
                         , 0.15, 0.18, 0.24, 0.30, 0.36
                         , 0.43, 0.50, 0.60, 0.72, 0.85
                         , 1.00, 1.00
                 };
 
-        int l_index = (int) (l_power * 16.0); // Get the corresponding index for the specified argument/parameter.
-
+        //
+        // Get the corresponding index for the specified argument/parameter.
+        //
+        int l_index = (int) (l_power * 16.0);
         if (l_index < 0) {
             l_index = -l_index;
-        }
-        else if (l_index > 16) {
+        } else if (l_index > 16) {
             l_index = 16;
         }
 
         if (l_power < 0) {
             l_scale = -l_array[l_index];
-        }
-        else {
+        } else {
             l_scale = l_array[l_index];
         }
 
@@ -54,20 +66,24 @@ public class TeleOp10516 extends LinearOpMode {
 
     }
 
-    @Override public void runOpMode () {
-        while(true) {
+    @Override
+    public void runOpMode() {
+        FileLogger logger = new FileLogger("OpModeDriveLog");
+        logger.write("test");
+        while (true) {
 
+            logger.write("While Loop Cycle");
             l = hardwareMap.dcMotor.get("l");
             r = hardwareMap.dcMotor.get("r");
             rb = hardwareMap.dcMotor.get("rb");
             lb = hardwareMap.dcMotor.get("lb");
-            fly1 = hardwareMap.dcMotor.get("fly1");
-            fly2 = hardwareMap.dcMotor.get("fly2");
-            bring = hardwareMap.servo.get("bring");
-            clasp2 = hardwareMap.servo.get("clasp2");
-            clasp1 = hardwareMap.servo.get("clasp1");
-
-            fly2.setDirection(DcMotor.Direction.REVERSE);
+       /* fly1 = hardwareMap.dcMotor.get("fly1");
+        fly2 = hardwareMap.dcMotor.get("fly2");
+        bring = hardwareMap.servo.get("bring");
+        clasp2 = hardwareMap.servo.get("clasp2");
+        clasp1 = hardwareMap.servo.get("clasp1");
+*/
+            //fly2.setDirection(DcMotor.Direction.REVERSE);
             r.setDirection(DcMotor.Direction.REVERSE);
             rb.setDirection(DcMotor.Direction.REVERSE);
 
@@ -83,13 +99,11 @@ public class TeleOp10516 extends LinearOpMode {
             l.setPower(l_left_drive_power);
             rb.setPower(l_right_drive_power);
             lb.setPower(l_left_drive_power);
-
-            while (gamepad1.dpad_up) {
-
+          /*  while (gamepad1.dpad_up) {
                 fly1.setPower(1);
                 fly2.setPower(1);
-
             }
+
 
             //When button a is pressed, the ball function is executed.
             if (gamepad2.dpad_down) {
@@ -130,7 +144,7 @@ public class TeleOp10516 extends LinearOpMode {
         sleep(2000);
         clasp1.setPosition(0.5);
         clasp2.setPosition(0.5);*/
-    }
+        }
 
         //This is the function to pick up balls and bring them to the launcher
        /* public void ball() {
@@ -145,8 +159,9 @@ public class TeleOp10516 extends LinearOpMode {
 
     }
 */
-    //This function should be used for sleep because it is setup to throw InterruptedException.
+        //This function should be used for sleep because it is setup to throw InterruptedException.
+
+    }
+
 
 }
-
-

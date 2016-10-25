@@ -35,6 +35,13 @@ import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
+import org.firstinspires.ftc.teamcode.debug.DevExample;
+import org.firstinspires.ftc.teamcode.debug.JoystickInputDebugLogged;
+import org.firstinspires.ftc.teamcode.sensors.ColorTelemetry;
+import org.firstinspires.ftc.teamcode.teleop.Drive;
+import org.firstinspires.ftc.teamcode.teleop.FourWheelDrive;
+import org.firstinspires.ftc.teamcode.teleop.TeleOpButtonPusher;
+import org.firstinspires.ftc.teamcode.teleop.UpDown;
 
 /**
  * {@link FtcOpModeRegister} is responsible for registering opmodes for use in an FTC game.
@@ -89,7 +96,8 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("UpDown", UpDown.class); // TeleOp
         manager.register("Joystick Scale Discrepancy Logging", JoystickInputDebugLogged.class); // TeleOp
         manager.register("Drive to and Push Button", WorkingBeaconPusher.class); // Autonomous
-
+        //Debug OpMode, remove before competition:
+        manager.register("DevExample", DevExample.class);
         /**
          * Any manual OpMode class registrations should go here.
          */

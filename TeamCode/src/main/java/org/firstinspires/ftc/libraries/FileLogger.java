@@ -12,17 +12,17 @@ import java.text.SimpleDateFormat;
 public class FileLogger {
 
     /**
-     * This class allows for file-based logging on a per-class level.
-     * It forces each OpMode to have its own log, which is good logging practice in this case.
-     * To use, assign a variable to a <code>new FileLogger("filename");</code>. Do not include .txt!
+     * This class allows for file-based logging on a per-class level, instantiate once only, or will override.
+     * Each OpMode must have its own instance and logfile, please include the OpMode to which a log file belongs
+     * in its name. To use, instantiate object FileLogger with desired "name". Do not include .txt!
      **/
     private String name;
-    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/dd/yyyy"); // using American date format
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/dd/yyyy");
 
     public FileLogger(String name) {
         /**
          * Constructor.
-         * @param name (required) The name of the output file.
+         * @param name (required) The name of the output file, without formatting info
          */
         this.name = name + System.currentTimeMillis();
         String path = name + ".txt";
@@ -32,14 +32,14 @@ public class FileLogger {
                 file.createNewFile();
             } catch (IOException e) {/* ignore it */}
         }
-        this.write("Name: " + this.name); // once we know the logger works, we should remove this
+        this.write("Name: " + this.name); // This should be left, helps to make the log file appear organized and legible.
         this.write(System.getProperty("line.separator") + "Launched at: " + sdf.format(System.currentTimeMillis()));
         this.write(System.getProperty("line.separator") + "<----------------------------------------------->");
     }
 
 
     /**
-     Writes a new line to the file, and saves it.
+     Writes a new line to the file, and saves it, with time attached in human legible form.
     **/
     public void write(String line){
         try {
