@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 import org.firstinspires.ftc.teamcode.debug.DevExample;
-import org.firstinspires.ftc.teamcode.debug.JoystickInputDebugLogged;
+
 import org.firstinspires.ftc.teamcode.sensors.ColorTelemetry;
 import org.firstinspires.ftc.teamcode.teleop.Drive;
 import org.firstinspires.ftc.teamcode.teleop.FourWheelDrive;
@@ -79,7 +79,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
 
         /**
-         * Register OpModes that use the annotation-based registration mechanism.
+         * Register OpModes tha t use the annotation-based registration mechanism.
          * This is how we register OpModes.
          */
         /*
@@ -92,12 +92,19 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("Drive", Drive.class); // TeleOp
         manager.register("Four Wheel Drive", FourWheelDrive.class); // TeleOp
         manager.register("Assisted TeleOp Button Pusher", TeleOpButtonPusher.class); // TeleOp
+//<<<<<<< Updated upstream
         manager.register("ColorTelemetry", ColorTelemetry.class); // TeleOp
         manager.register("UpDown", UpDown.class); // TeleOp
-        manager.register("Joystick Scale Discrepancy Logging", JoystickInputDebugLogged.class); // TeleOp
         manager.register("Drive to and Push Button", WorkingBeaconPusher.class); // Autonomous
         //Debug OpMode, remove before competition:
         manager.register("DevExample", DevExample.class);
+//=======
+        //manager.register("Autonomous Button Pusher", AutoButtonPusher.class);
+        manager.register("ColorTelemetry", ColorTelemetry.class);
+        manager.register("UpDown", UpDown.class);
+        manager.register("Working Beacon Code", WorkingBeaconPusher.class);
+
+//>>>>>>> Stashed changes
         /**
          * Any manual OpMode class registrations should go here.
          */

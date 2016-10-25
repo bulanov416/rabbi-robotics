@@ -68,14 +68,22 @@ public class WorkingBeaconPusher extends LinearOpMode {
             red = Integer.valueOf(colorValues.substring(2, 4));
             blue = Integer.valueOf(colorValues.substring(6, 8));
         }
+//<<<<<<< //Updated upstream
         // this statement assumes that we are on the red team, and the sensor is on the left
         if (red > blue) {
             pusher.setPosition(beacon_left_button_pos);
         } else if (blue > red) {
             pusher.setPosition(beacon_right_button_pos);
+//=======
+
+            if (red > blue) {
+                pusher.setPosition(160);
+            } else if (blue > red) {
+                pusher.setPosition(10);
+            }
+//>>>>>>> Stashed changes
         }
     }
-
 
     public void setupRobot() {
         l  = hardwareMap.dcMotor.get("l");
