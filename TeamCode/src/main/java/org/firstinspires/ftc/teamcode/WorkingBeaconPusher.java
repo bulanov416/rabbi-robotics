@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 @Autonomous(name="Working Beacon Pusher", group="AutoOps")
 public class WorkingBeaconPusher extends LinearOpMode {
@@ -16,7 +17,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
     int blue;
     String colorValues;
     int beacon_left_button_pos = 135, beacon_right_button_pos = 45, rest_position = 90;
-
+    TouchSensor touchSensor;
     public WorkingBeaconPusher() {}
 
     public void runOpMode() throws InterruptedException {
@@ -25,8 +26,18 @@ public class WorkingBeaconPusher extends LinearOpMode {
         waitForStart();
 
         // code that gets the robot to the beacon
-
+        drive(1, 2);
+        turnLeft(1, 1);
+        drive(1, 0);
+        waitForTouch();
+        stopDriving();
         pushButton();
+    }
+
+    public void waitForTouch() {
+        while (!touchSensor.isPressed()) {
+
+        }
     }
 
     public void drive(double power, double time) throws InterruptedException {
@@ -38,7 +49,16 @@ public class WorkingBeaconPusher extends LinearOpMode {
         stopDriving();
     }
 
-    public void turn(double power, double time) throws InterruptedException {
+    public void turnLeft(double power, double time) throws InterruptedException {
+        r.setPower(power);
+        rb.setPower(power);
+        l.setPower(-power);
+        lb.setPower(-power);
+        Thread.sleep((long) time * 100);
+        stopDriving();
+    }
+
+    public void turnRight(double power, double time) throws InterruptedException {
         r.setPower(-power);
         rb.setPower(-power);
         l.setPower(power);
@@ -68,21 +88,19 @@ public class WorkingBeaconPusher extends LinearOpMode {
             red = Integer.valueOf(colorValues.substring(2, 4));
             blue = Integer.valueOf(colorValues.substring(6, 8));
         }
-//<<<<<<< //Updated upstream
+
         // this statement assumes that we are on the red team, and the sensor is on the left
         if (red > blue) {
             pusher.setPosition(beacon_left_button_pos);
         } else if (blue > red) {
             pusher.setPosition(beacon_right_button_pos);
-//=======
 
-            if (red > blue) {
-                pusher.setPosition(160);
-            } else if (blue > red) {
-                pusher.setPosition(10);
-            }
-//>>>>>>> Stashed changes
+        if (red > blue) {
+            pusher.setPosition(160);
+        } else if (blue > red) {
+            pusher.setPosition(10);
         }
+       }
     }
 
     public void setupRobot() {
@@ -90,6 +108,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
         r  = hardwareMap.dcMotor.get("r");
         lb = hardwareMap.dcMotor.get("lb");
         rb = hardwareMap.dcMotor.get("rb");
+        touchSensor = hardwareMap.touchSensor.get("touch");
         pusher = hardwareMap.servo.get("pusher");
         colorSensor = hardwareMap.colorSensor.get("color");
     }
