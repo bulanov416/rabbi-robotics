@@ -36,12 +36,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 
-import org.firstinspires.ftc.teamcode.ColorTelemetry;
-import org.firstinspires.ftc.teamcode.Drive;
-import org.firstinspires.ftc.teamcode.FourWheelDrive;
-import org.firstinspires.ftc.teamcode.TeleOpButtonPusher;
-import org.firstinspires.ftc.teamcode.UpDown;
-
 /**
  * {@link FtcOpModeRegister} is responsible for registering opmodes for use in an FTC game.
  * @see #register(OpModeManager)
@@ -87,7 +81,7 @@ public class FtcOpModeRegister implements OpModeRegister {
          * manager.register("OpMode Display Name", OpModeName.class);
          * Only register an OpMode if it is in a testing or working state!
          */
-        AnnotatedOpModeRegistrar.register(manager);
+    /*    AnnotatedOpModeRegistrar.register(manager);
         manager.register("Drive", Drive.class); // TeleOp
         manager.register("Four Wheel Drive", FourWheelDrive.class); // TeleOp
         manager.register("Assisted TeleOp Button Pusher", TeleOpButtonPusher.class); // TeleOp
@@ -101,7 +95,9 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("ColorTelemetry", ColorTelemetry.class);
         manager.register("UpDown", UpDown.class);
         manager.register("Working Beacon Code", WorkingBeaconPusher.class);
-
+*/
+        manager.register("WorkingBeaconPusher", WorkingBeaconPusher.class);
+        manager.register("Drive", Drive.class);
 //>>>>>>> Stashed changes
         /**
          * Any manual OpMode class registrations should go here.

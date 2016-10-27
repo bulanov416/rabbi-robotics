@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
-import org.firstinspires.ftc.libraries.FileLogger;
+
 
 /**
  * Created by alexbulanov on 9/28/16.
@@ -16,6 +16,7 @@ public class Drive extends LinearOpMode {
     DcMotor r;
     DcMotor lb;
     DcMotor rb;
+    DcMotor lift;
    /* DcMotor fly1;
     DcMotor fly2;
     Servo bring;
@@ -68,15 +69,12 @@ public class Drive extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        FileLogger logger = new FileLogger("OpModeDriveLog");
-        logger.write("test");
         while (true) {
-
-            logger.write("While Loop Cycle");
             l = hardwareMap.dcMotor.get("l");
             r = hardwareMap.dcMotor.get("r");
             rb = hardwareMap.dcMotor.get("rb");
             lb = hardwareMap.dcMotor.get("lb");
+            lift = hardwareMap.dcMotor.get("lift");
        /* fly1 = hardwareMap.dcMotor.get("fly1");
         fly2 = hardwareMap.dcMotor.get("fly2");
         bring = hardwareMap.servo.get("bring");
@@ -99,6 +97,16 @@ public class Drive extends LinearOpMode {
             l.setPower(l_left_drive_power);
             rb.setPower(l_right_drive_power);
             lb.setPower(l_left_drive_power);
+
+            if (gamepad1.dpad_up) {
+                lift.setPower(1);
+            }
+            if (gamepad1.dpad_left) {
+                lift.setPower(0);
+            }
+            if (gamepad1.dpad_down) {
+                lift.setPower(-1);
+            }
           /*  while (gamepad1.dpad_up) {
                 fly1.setPower(1);
                 fly2.setPower(1);

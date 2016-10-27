@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-@Autonomous(name="Working Beacon Pusher", group="AutoOps")
+@Autonomous(name="Working Beacon Pusher")
 public class WorkingBeaconPusher extends LinearOpMode {
 
     DcMotor l, r, lb, rb;
@@ -26,12 +26,13 @@ public class WorkingBeaconPusher extends LinearOpMode {
         waitForStart();
 
         // code that gets the robot to the beacon
-        drive(1, 2);
+        drive(1, 1);
         turnLeft(1, 1);
         drive(1, 0);
         waitForTouch();
         stopDriving();
-        pushButton();
+        //pushButton();
+
     }
 
     public void waitForTouch() {
