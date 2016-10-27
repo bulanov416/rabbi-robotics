@@ -100,7 +100,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("DevExample", DevExample.class);
 //=======/*
         //manager.register("Autonomous Button Pusher", AutoButtonPusher.class);
-        manager.register("ColorTelemetry", ColorTelemetry.class);
+        //manager.register("ColorTelemetry", ColorTelemetry.class);
         /*
         manager.register("UpDown", UpDown.class);
         manager.register("Working Beacon Code", WorkingBeaconPusher.class); */
