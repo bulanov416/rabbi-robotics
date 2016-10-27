@@ -93,4 +93,12 @@ public class WorkingBeaconPusher extends LinearOpMode {
         pusher = hardwareMap.servo.get("pusher");
         colorSensor = hardwareMap.colorSensor.get("color");
     }
+
+    public void driveCentimeters (double distance) throws InterruptedException {
+        // drives a distance in cm based on a conversion factor from seconds
+        double conversionFactor = 0; // this needs to be filled
+        double distanceInSeconds = distance * conversionFactor;
+        drive(100, distanceInSeconds);
+        // in the future, we should set up a way to drive at lower powers
+    }
 }
