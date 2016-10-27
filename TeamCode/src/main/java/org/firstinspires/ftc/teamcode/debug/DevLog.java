@@ -13,10 +13,10 @@ import org.firstinspires.ftc.libraries.FileLogger;
  * main folder getting overly disorganized. Remember to register
  * in FtcOpModeRegister.
  */
-@TeleOp(name = "Null")
-public class DevExample extends LinearOpMode {
+@TeleOp(name = "DevExample")
+public class DevLog extends LinearOpMode {
 
-    public DevExample() {
+    public DevLog() {
 
     }
 

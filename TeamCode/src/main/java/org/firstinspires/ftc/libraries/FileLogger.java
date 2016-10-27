@@ -30,7 +30,10 @@ public class FileLogger {
         if (!file.exists()) {
             try {
                 file.createNewFile();
-            } catch (IOException e) {/* ignore it */}
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Hopefully this prints");
+            }
         }
         this.write("Name: " + this.name); // This should be left, helps to make the log file appear organized and legible.
         this.write(System.getProperty("line.separator") + "Launched at: " + sdf.format(System.currentTimeMillis()));
