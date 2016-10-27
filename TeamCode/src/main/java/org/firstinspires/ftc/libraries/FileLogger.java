@@ -33,6 +33,7 @@ public class FileLogger {
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Hopefully this prints");
+
             }
         }
         this.write("Name: " + this.name); // This should be left, helps to make the log file appear organized and legible.
