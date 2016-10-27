@@ -22,6 +22,7 @@ public class DevLog extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        waitForStart();
         FileLogger logger = new FileLogger("DevExampleLog");
         logger.write("This is an example log file!");
     }
