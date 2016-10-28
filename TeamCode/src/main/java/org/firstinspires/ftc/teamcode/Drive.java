@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
-import org.firstinspires.ftc.libraries.FileLogger;
+import org.gannacademy.libraries.FileLogger;
 
 /**
  * Created by alexbulanov on 9/28/16.
