@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
@@ -26,11 +27,13 @@ public class WorkingBeaconPusher extends LinearOpMode {
         waitForStart();
 
         // code that gets the robot to the beacon
+
         drive(1, 1);
-        turnLeft(1, 1);
-        drive(1, 1);
+        turnLeft(1, 0.5);
+        drive(1, 1.5);
+        turnLeft(1, 0.5);
+        drive(1, 0);
         waitForTouch();
-        stopDriving();
         //pushButton();
 
     }
@@ -39,6 +42,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
         while (!touchSensor.isPressed()) {
 
         }
+
     }
 
     public void drive(double power, double time) throws InterruptedException {
@@ -46,7 +50,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
         rb.setPower(power);
         l.setPower(power);
         lb.setPower(power);
-        Thread.sleep((long) time * 1000);
+        Thread.sleep((long) (time * 1000));
         stopDriving();
     }
 
@@ -55,7 +59,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
         rb.setPower(power);
         l.setPower(-power);
         lb.setPower(-power);
-        Thread.sleep((long) time * 1000);
+        Thread.sleep((long) (time * 1000));
         stopDriving();
     }
 
@@ -64,7 +68,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
         rb.setPower(-power);
         l.setPower(power);
         lb.setPower(power);
-        Thread.sleep((long) time * 1000);
+        Thread.sleep((long) (time * 1000));
         stopDriving();
     }
 
@@ -112,5 +116,8 @@ public class WorkingBeaconPusher extends LinearOpMode {
         touchSensor = hardwareMap.touchSensor.get("touch");
         pusher = hardwareMap.servo.get("pusher");
         colorSensor = hardwareMap.colorSensor.get("color");
+        l.setDirection(DcMotorSimple.Direction.REVERSE);
+        lb.setDirection(DcMotorSimple.Direction.REVERSE);
+        pusher.setPosition(rest_position);
     }
 }

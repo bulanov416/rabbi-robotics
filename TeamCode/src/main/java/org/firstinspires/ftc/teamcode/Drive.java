@@ -16,7 +16,7 @@ public class Drive extends LinearOpMode {
     DcMotor r;
     DcMotor lb;
     DcMotor rb;
-    DcMotor lift;
+    //DcMotor lift;
    /* DcMotor fly1;
     DcMotor fly2;
     Servo bring;
@@ -74,7 +74,7 @@ public class Drive extends LinearOpMode {
             r = hardwareMap.dcMotor.get("r");
             rb = hardwareMap.dcMotor.get("rb");
             lb = hardwareMap.dcMotor.get("lb");
-            lift = hardwareMap.dcMotor.get("lift");
+           // lift = hardwareMap.dcMotor.get("lift");
        /* fly1 = hardwareMap.dcMotor.get("fly1");
         fly2 = hardwareMap.dcMotor.get("fly2");
         bring = hardwareMap.servo.get("bring");
@@ -98,7 +98,7 @@ public class Drive extends LinearOpMode {
             rb.setPower(l_right_drive_power);
             lb.setPower(l_left_drive_power);
 
-            if (gamepad1.dpad_up) {
+           /* if (gamepad1.dpad_up) {
                 lift.setPower(1);
             }
             if (gamepad1.dpad_left) {
