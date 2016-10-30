@@ -1,30 +1,30 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
-import java.util.Arrays;
 
-@Autonomous(name="Autonomous Button Pusher", group="AutoOps")
-public class AutoButtonPusher extends LinearOpMode {
+@Autonomous(name="Working Beacon Pusher", group="AutoOps")
+public class BeaconPusherAuto extends LinearOpMode {
 
     DcMotor l, r, lb, rb;
     Servo pusher;
-    ColorSensor colorSensor = hardwareMap.colorSensor.get("color");
+    ColorSensor colorSensor;
+    int red;
+    int blue;
+    String colorValues;
     int beacon_left_button_pos = 135, beacon_right_button_pos = 45, rest_position = 90;
-    int[] beacon_red = {256, 0, 0, 1};
 
-    public AutoButtonPusher() {}
+    public BeaconPusherAuto() {}
 
     public void runOpMode() throws InterruptedException {
         setupRobot(); // method for setting up our hardware
 
         waitForStart();
 
-        // code that runs after the start button is pressed
+        // code that gets the robot to the beacon
 
         pushButton();
     }
@@ -55,32 +55,34 @@ public class AutoButtonPusher extends LinearOpMode {
     }
 
     public void pushButton() throws InterruptedException {
-        int[] beacon_color = new int[4];
-        boolean weAreRed = true;
-        beacon_color[0] = colorSensor.red();
-        beacon_color[1] = colorSensor.green();
-        beacon_color[2] = colorSensor.blue();
-        beacon_color[3] = colorSensor.alpha();
+        pusher.setPosition(rest_position);
 
-        /* This statement assumes that we are the RED team.
-           This statement also assumes that the color sensor is looking at the left side of the beacon.
-           TODO be like Leila Goodman and assume nothing. fix this if statement!
-           You'll need to create a special blue class - we can't tell the OpMode which team we're on. */
-        if (Arrays.equals(beacon_color, beacon_red)) {
-            pusher.setPosition(beacon_left_button_pos);
-            telemetry.addData("Pushed Button", "LEFT");
-            telemetry.update();
+        // returns string in this format: "aarrggb". for example "1924873409"
+        colorValues = Integer.toString(colorSensor.argb());
+
+        if (colorValues == "") { // this occurs when the color changes too quickly
+            red = 0;
+            blue = 0;
         } else {
-            pusher.setPosition(beacon_right_button_pos);
-            telemetry.addData("Pushed button", "RIGHT");
-            telemetry.update();
+            // extract the red and blue values from the string
+            red = Integer.valueOf(colorValues.substring(2, 4));
+            blue = Integer.valueOf(colorValues.substring(6, 8));
         }
+//<<<<<<< //Updated upstream
+        // this statement assumes that we are on the red team, and the sensor is on the left
+        if (red > blue) {
+            pusher.setPosition(beacon_left_button_pos);
+        } else if (blue > red) {
+            pusher.setPosition(beacon_right_button_pos);
+//=======
 
-        Thread.sleep(50);
-        pusher.setPosition(Range.scale(rest_position, 0, 185, 0, 255));
-        telemetry.addData("Button Push Successful. Release the triggers NOW.", "");
-        telemetry.update();
-        Thread.sleep(100);
+            if (red > blue) {
+                pusher.setPosition(160);
+            } else if (blue > red) {
+                pusher.setPosition(10);
+            }
+//>>>>>>> Stashed changes
+        }
     }
 
     public void setupRobot() {
@@ -90,7 +92,13 @@ public class AutoButtonPusher extends LinearOpMode {
         rb = hardwareMap.dcMotor.get("rb");
         pusher = hardwareMap.servo.get("pusher");
         colorSensor = hardwareMap.colorSensor.get("color");
-        // set the beacon_red values here
+    }
 
+    public void driveCentimeters (double distance) throws InterruptedException {
+        // drives a distance in cm based on a conversion factor from seconds
+        double conversionFactor = 0; // this needs to be filled
+        double distanceInSeconds = distance * conversionFactor;
+        drive(100, distanceInSeconds);
+        // in the future, we should set up a way to drive at lower powers
     }
 }

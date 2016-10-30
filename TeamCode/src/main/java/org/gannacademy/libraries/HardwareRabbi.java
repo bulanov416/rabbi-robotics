@@ -26,7 +26,7 @@ import org.firstinspires.ftc.robotcore.internal.TelemetryInternal;
  * Motor: Left  drive motor:        "l"
  * Motor: Right drive motor:        "r"
  * Motor: Left back drive motor:    "lb"
- * Motor: Right Back DriveLegacy Motor:   "rb"
+ * Motor: Right Back BasicDriveTeleOp Motor:   "rb"
  * Servo: Button Pusher:            "buttonPushServo"
  *
  * More motors can be added as they are implemented

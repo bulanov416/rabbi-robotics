@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -6,14 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-/*
-A small note about the phones:
-The one with the BLUE wallpaper is the Robot Controller.
-The one with the ORANGE wallpaper is the Driver Station.
- */
-
-@TeleOp(name = "TeleOp 10/8/16")
-public class TeleOp10816 extends LinearOpMode {
+@TeleOp(name = "TeleOp 10/5/16")
+public class TeleOp10516 extends LinearOpMode {
 
     DcMotor l, r; // always shorten these!
     DcMotor lb, rb;
@@ -22,11 +16,11 @@ public class TeleOp10816 extends LinearOpMode {
     Servo clasp1, clasp2;
 
 
-    public TeleOp10816() {
+    public TeleOp10516() {
 
     }
 
-    double scale_motor_power_legacy (double p_power)  //Scales joystick value to output appropriate motor power
+    double scale_motor_power (double p_power)  //Scales joystick value to output appropriate motor power
     {                                          //Use like "scale_motor_power(gamepad1.left_stick_x)"
 
         double l_scale = 0.0; // Assume no scaling.
@@ -60,30 +54,6 @@ public class TeleOp10816 extends LinearOpMode {
 
     }
 
-    float scale_motor_power(double p_power, double deadzone) { // DcMotor.setPower needs a float
-        // Simpler method of controlling the motor range
-        p_power = Range.clip(p_power, -1, 1);
-        double negative_power = 0, positive_power = 0;
-        // differentiate between negative and positive power - required to implement deadzones
-        if (p_power > 0) {
-            positive_power = Range.clip(p_power, deadzone, 1); // implement the deadzone
-            positive_power = Range.scale(positive_power, deadzone, 1, 0, 1); // and bring it back to 0<n<1
-        } else {
-            negative_power = Range.clip(p_power, -deadzone, -1); // implement the deadzone
-            negative_power = Range.scale(negative_power, -deadzone, -1, 0, -1); // and bring it back to 0>n>-1
-        }
-        // return the final power
-        if (positive_power > 0) {
-            return (float) positive_power;
-        }
-        else if (negative_power < 0) {
-            return (float) negative_power;
-        }
-        else {
-            return 0;
-        }
-    }
-
     @Override public void runOpMode () {
         while(true) {
 
@@ -103,11 +73,11 @@ public class TeleOp10816 extends LinearOpMode {
 
             float l_gp1_left_stick_y = gamepad1.left_stick_y;
             float l_left_drive_power
-                    = scale_motor_power((double) l_gp1_left_stick_y, 0.05);
+                    = (float) scale_motor_power(l_gp1_left_stick_y);
 
             float l_gp1_right_stick_y = gamepad1.right_stick_y;
             float l_right_drive_power
-                    = scale_motor_power((double) l_gp1_right_stick_y, 0.05);
+                    = (float) scale_motor_power(l_gp1_right_stick_y);
 
             r.setPower(l_right_drive_power);
             l.setPower(l_left_drive_power);
