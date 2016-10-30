@@ -46,7 +46,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
         rb.setPower(power);
         l.setPower(power);
         lb.setPower(power);
-        Thread.sleep((long) time * 100);
+        Thread.sleep((long) time * 1000);
         stopDriving();
     }
 
@@ -55,7 +55,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
         rb.setPower(power);
         l.setPower(-power);
         lb.setPower(-power);
-        Thread.sleep((long) time * 100);
+        Thread.sleep((long) time * 1000);
         stopDriving();
     }
 
@@ -64,7 +64,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
         rb.setPower(-power);
         l.setPower(power);
         lb.setPower(power);
-        Thread.sleep((long) time * 100);
+        Thread.sleep((long) time * 1000);
         stopDriving();
     }
 
