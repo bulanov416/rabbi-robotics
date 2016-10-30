@@ -28,7 +28,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
         // code that gets the robot to the beacon
         drive(1, 1);
         turnLeft(1, 1);
-        drive(1, 0);
+        drive(1, 1);
         waitForTouch();
         stopDriving();
         //pushButton();
