@@ -9,8 +9,8 @@ import org.gannacademy.libraries.FileLogger;
 /**
  * Created by alexbulanov on 9/28/16.
  */
-@TeleOp(name = "Drive")
-public class Drive extends LinearOpMode {
+@TeleOp(name = "DriveLegacy")
+public class DriveLegacy extends LinearOpMode {
 
     DcMotor l;
     DcMotor r;
@@ -23,7 +23,7 @@ public class Drive extends LinearOpMode {
     Servo clasp2;
 */
 
-    public Drive() {
+    public DriveLegacy() {
 
     }
 

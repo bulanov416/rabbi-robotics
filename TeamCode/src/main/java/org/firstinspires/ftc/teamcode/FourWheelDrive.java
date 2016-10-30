@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.Range;
 /**
  * Created by Matan on 10/16/2016.
  */
-@TeleOp(name = "Four Wheel Drive")
+@TeleOp(name = "Four Wheel DriveLegacy")
 public class FourWheelDrive extends LinearOpMode {
 
     DcMotor l, r; // front motors
