@@ -11,10 +11,6 @@ import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.TelemetryInternal;
 
-/*
- *
- */
-
 /**
  * This is NOT an opmode.
  *
@@ -65,11 +61,8 @@ public class HardwareRabbi
         lb.setDirection(DcMotor.Direction.FORWARD);
         r .setDirection(DcMotor.Direction.REVERSE);
         rb.setDirection(DcMotor.Direction.FORWARD);
-        // TODO replace code below with stopDriving() method
-        l. setPower(0);
-        lb.setPower(0);
-        r. setPower(0);
-        rb.setPower(0);
+        // Initially stop all motors
+        stopDriving();
         // Make sure the motors are not expecting encoders
         l .setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -112,7 +105,7 @@ public class HardwareRabbi
      */
     public void driveCentimeters (double distance, double powerPercentage) throws InterruptedException {
         // drives a distance in cm based on a conversion factor from seconds
-        double conversionFactor = 0; // this needs to be filled
+        double conversionFactor = 30; // this needs to be filled
         double powerConversionFactor = powerPercentage / 100; // for converting power
         double distanceInSeconds = distance / conversionFactor;
         driveSeconds(100, distanceInSeconds * powerConversionFactor);
