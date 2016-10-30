@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 import org.firstinspires.ftc.teamcode.auto.BeaconPusherAuto;
 import org.firstinspires.ftc.teamcode.debug.UpDown;
+import org.firstinspires.ftc.teamcode.debug.poc.DriveCentimetersPoC;
 import org.firstinspires.ftc.teamcode.sensors.ColorTelemetry;
 import org.firstinspires.ftc.teamcode.teleop.BasicDriveTeleOp;
 import org.firstinspires.ftc.teamcode.teleop.FourWheelTeleOp;
@@ -99,6 +100,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("ColorTelemetry", ColorTelemetry.class);
         manager.register("UpDown", UpDown.class);
         manager.register("Working Beacon Code", BeaconPusherAuto.class);
+        manager.register("driveCentimeters() PoC", DriveCentimetersPoC.class);
 
         /**
          * Any manual OpMode class registrations should go here.
