@@ -1,4 +1,4 @@
-package org.gannacademy.libraries;
+package org.firstinspires.ftc.libraries;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 public class FileLogger {
 
     /**
-     * WARNING: This class DOES NOT WORK. It will output nothing.
      * This class allows for file-based logging on a per-class level.
      * It forces each OpMode to have its own log, which is good logging practice in this case.
      * To use, assign a variable to a <code>new FileLogger("filename");</code>. Do not include .txt!
