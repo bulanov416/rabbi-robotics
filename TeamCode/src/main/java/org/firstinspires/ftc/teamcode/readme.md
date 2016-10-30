@@ -46,6 +46,7 @@ Names must be concise, descriptive, and apply to our rules. If they aren't any o
 name, but `Autobuttonpusher` or `Auto Button Pusher` are bad names.
 * Name them concisely and descriptively. `TeleOpThatDoesStuff` is not descriptive. But don't be too long - names over
 20 characters long will throw an error.
+* All classes should be of the form "SpecificName" + "GeneralName", for example "ButtonPusherTeleOp".
 * Proof of Concept OpModes should have names that end in `PoC`.
 * TeleOp OpModes should have names that start with `TeleOp`.
 * Autonomous OpModes should have names that start with `Auto`.

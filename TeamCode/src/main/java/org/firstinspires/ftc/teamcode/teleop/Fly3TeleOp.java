@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by Matan on 10/16/2016.
  */
-@TeleOp(name="TeleOp 10/16/16")
-public class TeleOp101616 extends LinearOpMode {
+@TeleOp(name="Fly3TeleOp")
+public class Fly3TeleOp extends LinearOpMode {
     // declare motors and servos
     DcMotor motor1, motor2, motor3, motor4, motor5;
     Servo servo1, servo2;

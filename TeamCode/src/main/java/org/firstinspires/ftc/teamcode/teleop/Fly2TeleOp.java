@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -12,8 +12,8 @@ The one with the BLUE wallpaper is the Robot Controller.
 The one with the ORANGE wallpaper is the Driver Station.
  */
 
-@TeleOp(name = "TeleOp 10/8/16")
-public class TeleOp10816 extends LinearOpMode {
+@TeleOp(name = "FlyTeleOp")
+public class Fly2TeleOp extends LinearOpMode {
 
     DcMotor l, r; // always shorten these!
     DcMotor lb, rb;
@@ -22,7 +22,7 @@ public class TeleOp10816 extends LinearOpMode {
     Servo clasp1, clasp2;
 
 
-    public TeleOp10816() {
+    public Fly2TeleOp() {
 
     }
 

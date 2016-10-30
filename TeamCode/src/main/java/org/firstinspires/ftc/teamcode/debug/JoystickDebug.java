@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.debug;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,7 +10,7 @@ import org.gannacademy.libraries.FileLogger;
  * Created by alexbulanov on 9/28/16.
  */
 @TeleOp(name = "Joystick Input Debug Logged")
-public class JoystickInputDebugLogged extends LinearOpMode {
+public class JoystickDebug extends LinearOpMode {
 
     DcMotor l;
     DcMotor r;
@@ -23,7 +23,7 @@ public class JoystickInputDebugLogged extends LinearOpMode {
     Servo clasp2;
 */
 
-    public JoystickInputDebugLogged() {
+    public JoystickDebug() {
 
     }
 

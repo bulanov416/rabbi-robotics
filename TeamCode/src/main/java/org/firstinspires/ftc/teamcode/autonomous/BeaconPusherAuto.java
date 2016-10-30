@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name="Working Beacon Pusher", group="AutoOps")
-public class WorkingBeaconPusher extends LinearOpMode {
+public class BeaconPusherAuto extends LinearOpMode {
 
     DcMotor l, r, lb, rb;
     Servo pusher;
@@ -17,7 +17,7 @@ public class WorkingBeaconPusher extends LinearOpMode {
     String colorValues;
     int beacon_left_button_pos = 135, beacon_right_button_pos = 45, rest_position = 90;
 
-    public WorkingBeaconPusher() {}
+    public BeaconPusherAuto() {}
 
     public void runOpMode() throws InterruptedException {
         setupRobot(); // method for setting up our hardware

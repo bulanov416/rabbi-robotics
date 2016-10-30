@@ -35,6 +35,12 @@ import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
+import org.firstinspires.ftc.teamcode.autonomous.BeaconPusherAuto;
+import org.firstinspires.ftc.teamcode.debug.UpDownTeleOp;
+import org.firstinspires.ftc.teamcode.sensors.ColorTelemetry;
+import org.firstinspires.ftc.teamcode.teleop.BasicDriveTeleOp;
+import org.firstinspires.ftc.teamcode.teleop.FourWheelTeleOp;
+import org.firstinspires.ftc.teamcode.teleop.ButtonPusherTeleOp;
 
 
 /**
@@ -83,16 +89,16 @@ public class FtcOpModeRegister implements OpModeRegister {
          * Only register an OpMode if it is in a testing or working state!
          */
         AnnotatedOpModeRegistrar.register(manager);
-        manager.register("Drive", Drive.class); // TeleOp
-        manager.register("Four Wheel Drive", FourWheelDrive.class); // TeleOp
-        manager.register("Assisted TeleOp Button Pusher", TeleOpButtonPusher.class); // TeleOp
+        manager.register("BasicDriveTeleOp", BasicDriveTeleOp.class); // TeleOp
+        manager.register("Four Wheel TeleOp", FourWheelTeleOp.class); // TeleOp
+        manager.register("Assisted TeleOp Button Pusher", ButtonPusherTeleOp.class); // TeleOp
         manager.register("ColorTelemetry", ColorTelemetry.class); // TeleOp
-        manager.register("UpDown", UpDown.class); // TeleOp
-        manager.register("Drive to and Push Button", WorkingBeaconPusher.class); // Autonomous
+        manager.register("UpDownTeleOp", UpDownTeleOp.class); // TeleOp
+        manager.register("BasicDriveTeleOp to and Push Button", BeaconPusherAuto.class); // Autonomous
         //manager.register("Autonomous Button Pusher", AutoButtonPusher.class);
         manager.register("ColorTelemetry", ColorTelemetry.class);
-        manager.register("UpDown", UpDown.class);
-        manager.register("Working Beacon Code", WorkingBeaconPusher.class);
+        manager.register("UpDownTeleOp", UpDownTeleOp.class);
+        manager.register("Working Beacon Code", BeaconPusherAuto.class);
 
         /**
          * Any manual OpMode class registrations should go here.

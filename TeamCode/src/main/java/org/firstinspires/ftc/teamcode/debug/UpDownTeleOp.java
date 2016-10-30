@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.debug;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.Range;
  * Created by Matan on 10/23/2016.
  */
 @TeleOp(name = "Up Down")
-public class UpDown extends LinearOpMode {
+public class UpDownTeleOp extends LinearOpMode {
     DcMotor motor;
     public void runOpMode() throws InterruptedException {
         gamepad1.setJoystickDeadzone((float) 0.05);

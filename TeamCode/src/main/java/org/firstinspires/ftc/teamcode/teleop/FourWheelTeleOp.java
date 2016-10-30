@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.util.Range;
 /**
  * Created by Matan on 10/16/2016.
  */
-@TeleOp(name = "Four Wheel Drive")
-public class FourWheelDrive extends LinearOpMode {
+@TeleOp(name = "Four Wheel TeleOp")
+public class FourWheelTeleOp extends LinearOpMode {
 
     DcMotor l, r; // front motors
     DcMotor lb, rb; // back motors

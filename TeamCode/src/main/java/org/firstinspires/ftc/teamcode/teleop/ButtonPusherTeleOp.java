@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * Created by Nathan on 10/16/2016.
  */
-public class TeleOpButtonPusher extends LinearOpMode {
+public class ButtonPusherTeleOp extends LinearOpMode {
 
     DcMotor l, r, lb, rb;
     Servo buttonpusher;
@@ -18,7 +18,7 @@ public class TeleOpButtonPusher extends LinearOpMode {
     int beacon_left_button_pos, beacon_right_button_pos, rest_position;
     int[] beaconRed = new int[4];
 
-    public TeleOpButtonPusher() {}
+    public ButtonPusherTeleOp() {}
 
     public void runOpMode() throws InterruptedException {
         gamepad1.setJoystickDeadzone((float) 0.05);
