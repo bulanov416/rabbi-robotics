@@ -143,6 +143,25 @@ public class HardwareRabbi
         l.setPower(power);
         lb.setPower(power);
     }
+
+    public void turnLeft(double power, double time) throws InterruptedException {
+        r.setPower(power);
+        rb.setPower(power);
+        l.setPower(-power);
+        lb.setPower(-power);
+        Thread.sleep((long) (time * 1000));
+        stopDriving();
+    }
+
+    public void turnRight(double power, double time) throws InterruptedException {
+        r.setPower(-power);
+        rb.setPower(-power);
+        l.setPower(power);
+        lb.setPower(power);
+        Thread.sleep((long) (time * 1000));
+        stopDriving();
+    }
+
     public void stopDriving() {
         r.setPower(0);
         rb.setPower(0);
