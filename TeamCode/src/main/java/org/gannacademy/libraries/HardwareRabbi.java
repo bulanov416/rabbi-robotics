@@ -132,6 +132,17 @@ public class HardwareRabbi
         stopDriving();
     }
 
+    /***
+     * Starts driving at a certain power. stopDriving must be called manually afterwards.
+     *
+     * @param power the power to run the motor at (between -1 and 1)
+     */
+    public void startDriving(double power) {
+        r.setPower(power);
+        rb.setPower(power);
+        l.setPower(power);
+        lb.setPower(power);
+    }
     public void stopDriving() {
         r.setPower(0);
         rb.setPower(0);
