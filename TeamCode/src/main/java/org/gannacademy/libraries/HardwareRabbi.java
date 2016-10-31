@@ -135,6 +135,40 @@ public class HardwareRabbi
         Thread.sleep((long) time * 100);
         stopDriving();
     }
+<<<<<<< HEAD
+=======
+
+    /***
+     * Starts driving at a certain power. stopDriving must be called manually afterwards.
+     *
+     * @param power the power to run the motor at (between -1 and 1)
+     */
+    public void startDriving(double power) {
+        r.setPower(power);
+        rb.setPower(power);
+        l.setPower(power);
+        lb.setPower(power);
+    }
+
+    public void turnLeft(double power, double time) throws InterruptedException {
+        r.setPower(power);
+        rb.setPower(power);
+        l.setPower(-power);
+        lb.setPower(-power);
+        Thread.sleep((long) (time * 1000));
+        stopDriving();
+    }
+
+    public void turnRight(double power, double time) throws InterruptedException {
+        r.setPower(-power);
+        rb.setPower(-power);
+        l.setPower(power);
+        lb.setPower(power);
+        Thread.sleep((long) (time * 1000));
+        stopDriving();
+    }
+
+>>>>>>> origin/master
     public void stopDriving() {
         r.setPower(0);
         rb.setPower(0);

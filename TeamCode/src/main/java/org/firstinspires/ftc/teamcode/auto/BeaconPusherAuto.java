@@ -4,9 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
-@Autonomous(name="Working Beacon Pusher", group="AutoOps")
+@Autonomous(name="Working Beacon Pusher")
 public class BeaconPusherAuto extends LinearOpMode {
 
     DcMotor l, r, lb, rb;
@@ -16,7 +18,7 @@ public class BeaconPusherAuto extends LinearOpMode {
     int blue;
     String colorValues;
     int beacon_left_button_pos = 135, beacon_right_button_pos = 45, rest_position = 90;
-
+    TouchSensor touchSensor;
     public BeaconPusherAuto() {}
 
     public void runOpMode() throws InterruptedException {
@@ -26,7 +28,21 @@ public class BeaconPusherAuto extends LinearOpMode {
 
         // code that gets the robot to the beacon
 
-        pushButton();
+        drive(1, 1);
+        turnLeft(1, 0.5);
+        drive(1, 1.5);
+        turnLeft(1, 0.5);
+        drive(1, 0);
+        waitForTouch();
+        //pushButton();
+
+    }
+
+    public void waitForTouch() {
+        while (!touchSensor.isPressed()) {
+
+        }
+
     }
 
     public void drive(double power, double time) throws InterruptedException {
@@ -34,16 +50,25 @@ public class BeaconPusherAuto extends LinearOpMode {
         rb.setPower(power);
         l.setPower(power);
         lb.setPower(power);
-        Thread.sleep((long) time * 100);
+        Thread.sleep((long) (time * 1000));
         stopDriving();
     }
 
-    public void turn(double power, double time) throws InterruptedException {
+    public void turnLeft(double power, double time) throws InterruptedException {
+        r.setPower(power);
+        rb.setPower(power);
+        l.setPower(-power);
+        lb.setPower(-power);
+        Thread.sleep((long) (time * 1000));
+        stopDriving();
+    }
+
+    public void turnRight(double power, double time) throws InterruptedException {
         r.setPower(-power);
         rb.setPower(-power);
         l.setPower(power);
         lb.setPower(power);
-        Thread.sleep((long) time * 100);
+        Thread.sleep((long) (time * 1000));
         stopDriving();
     }
 
@@ -68,20 +93,18 @@ public class BeaconPusherAuto extends LinearOpMode {
             red = Integer.valueOf(colorValues.substring(2, 4));
             blue = Integer.valueOf(colorValues.substring(6, 8));
         }
-//<<<<<<< //Updated upstream
+
         // this statement assumes that we are on the red team, and the sensor is on the left
         if (red > blue) {
             pusher.setPosition(beacon_left_button_pos);
         } else if (blue > red) {
             pusher.setPosition(beacon_right_button_pos);
-//=======
 
             if (red > blue) {
                 pusher.setPosition(160);
             } else if (blue > red) {
                 pusher.setPosition(10);
             }
-//>>>>>>> Stashed changes
         }
     }
 
@@ -90,15 +113,11 @@ public class BeaconPusherAuto extends LinearOpMode {
         r  = hardwareMap.dcMotor.get("r");
         lb = hardwareMap.dcMotor.get("lb");
         rb = hardwareMap.dcMotor.get("rb");
+        touchSensor = hardwareMap.touchSensor.get("touch");
         pusher = hardwareMap.servo.get("pusher");
         colorSensor = hardwareMap.colorSensor.get("color");
-    }
-
-    public void driveCentimeters (double distance) throws InterruptedException {
-        // drives a distance in cm based on a conversion factor from seconds
-        double conversionFactor = 0; // this needs to be filled
-        double distanceInSeconds = distance * conversionFactor;
-        drive(100, distanceInSeconds);
-        // in the future, we should set up a way to drive at lower powers
+        l.setDirection(DcMotorSimple.Direction.REVERSE);
+        lb.setDirection(DcMotorSimple.Direction.REVERSE);
+        pusher.setPosition(rest_position);
     }
 }
