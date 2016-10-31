@@ -16,15 +16,14 @@ public class DriveCentimetersPoC extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, telemetry);
 
         waitForStart();
 
-        robot.driveCentimeters(10, 100);
+        robot.driveCentimeters(15, 100);
         robot.stopDriving();
         Thread.sleep(1000);
-        robot.driveCentimeters(-10, 100);
-        stop();
+        robot.driveCentimeters(-15, 100);
     }
 
 

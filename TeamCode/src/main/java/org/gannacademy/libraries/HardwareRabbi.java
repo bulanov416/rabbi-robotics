@@ -38,6 +38,7 @@ public class HardwareRabbi
 
     /* local OpMode members. */
     HardwareMap hwMap;
+    Telemetry telemetry;
     private ElapsedTime period  = new ElapsedTime();
 
     /* Enum ButtonPushPositions {
@@ -48,8 +49,9 @@ public class HardwareRabbi
     public HardwareRabbi(){}
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
+    public void init(HardwareMap ahwMap, Telemetry opModeTelemetry) {
         hwMap = ahwMap; // uses the HardwareMap from the OpMode
+        telemetry = opModeTelemetry;
 
         // Define and Initialize Motors
         l  = hwMap.dcMotor.get("l");
@@ -108,7 +110,9 @@ public class HardwareRabbi
         double conversionFactor = 30; // this needs to be filled
         double powerConversionFactor = powerPercentage / 100; // for converting power
         double distanceInSeconds = distance / conversionFactor;
-        driveSeconds(100, distanceInSeconds * powerConversionFactor);
+        telemetry.addData(Double.toString(distanceInSeconds), Double.toString(distanceInSeconds));
+        telemetry.update();
+        driveSeconds(powerPercentage / 100, distanceInSeconds * powerConversionFactor);
         // in the future, we should set up a way to drive at lower powers
     }
 
@@ -131,7 +135,6 @@ public class HardwareRabbi
         Thread.sleep((long) time * 100);
         stopDriving();
     }
-
     public void stopDriving() {
         r.setPower(0);
         rb.setPower(0);
