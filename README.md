@@ -1,4 +1,6 @@
 # ftc_app
+
+[![Join the chat at https://gitter.im/rabbi-robotics/Lobby](https://badges.gitter.im/rabbi-robotics/Lobby.svg)](https://gitter.im/rabbi-robotics/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 FTC Android Studio project to create FTC Robot Controller app.
 
 This is the FTC SDK that can be used to create an FTC Robot Controller app, with custom op modes.
