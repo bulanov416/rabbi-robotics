@@ -23,31 +23,28 @@ public class ActiveCalAutoPoc extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        while (true) {
-            l = hardwareMap.dcMotor.get("l");
-            r = hardwareMap.dcMotor.get("r");
-            rb = hardwareMap.dcMotor.get("rb");
-            lb = hardwareMap.dcMotor.get("lb");
+        l = hardwareMap.dcMotor.get("l");
+        r = hardwareMap.dcMotor.get("r");
+        rb = hardwareMap.dcMotor.get("rb");
+        lb = hardwareMap.dcMotor.get("lb");
 
-            us = hardwareMap.ultrasonicSensor.get("us");
+        us = hardwareMap.ultrasonicSensor.get("us");
 
-            r.setDirection(DcMotor.Direction.REVERSE);
-            rb.setDirection(DcMotor.Direction.REVERSE);
-            long timeFinal = System.currentTimeMillis() + 4000;
-            double distanceInital = us.getUltrasonicLevel();
-            while (System.currentTimeMillis() < timeFinal) {
-                r.setPower(1);
-                l.setPower(1);
-                rb.setPower(1);
-                lb.setPower(1);
-            }
-            r.setPower(0);
-            l.setPower(0);
-            rb.setPower(0);
-            lb.setPower(0);
-            double distanceFinal = us.getUltrasonicLevel();
-            float speed = (float) (distanceFinal - distanceInital)/4;
-
+        r.setDirection(DcMotor.Direction.REVERSE);
+        rb.setDirection(DcMotor.Direction.REVERSE);
+        long timeFinal = System.currentTimeMillis() + 4000;
+        double distanceInital = us.getUltrasonicLevel();
+        while (System.currentTimeMillis() < timeFinal) {
+            r.setPower(1);
+            l.setPower(1);
+            rb.setPower(1);
+            lb.setPower(1);
         }
+        r.setPower(0);
+        l.setPower(0);
+        rb.setPower(0);
+        lb.setPower(0);
+        double distanceFinal = us.getUltrasonicLevel();
+        float speed = (float) (distanceFinal - distanceInital)/4;
     }
 }

@@ -4,13 +4,20 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.Permission;
 import java.text.SimpleDateFormat;
+import java.util.jar.Manifest;
+
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Environment;
 
 /**
  * Created by Levi on 10/23/2016.
  */
-public class FileLogger {
+public class FileLogger extends Activity {
 
     /**
      * This class allows for file-based logging on a per-class level, instantiate once only, or will override.
@@ -22,6 +29,7 @@ public class FileLogger {
     private SimpleDateFormat sdf2 = new SimpleDateFormat("MM-dd-yyyy--HH:mm:ss");
     private String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString()+"/4466Logs";
 
+    @TargetApi(Build.VERSION_CODES.M)
     public FileLogger(String name) {
         /**
          * Constructor.
@@ -29,7 +37,10 @@ public class FileLogger {
          */
 
         File dirStorage = new File(path);
-        if (dirStorage.canWrite()) {
+
+        int storagePermission = checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (storagePermission == PackageManager.PERMISSION_GRANTED) {
             if (!dirStorage.isDirectory()) {
                 dirStorage.mkdir();
             }
