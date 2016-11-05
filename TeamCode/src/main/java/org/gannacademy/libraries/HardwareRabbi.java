@@ -5,7 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.LightSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -24,6 +27,8 @@ import org.firstinspires.ftc.robotcore.internal.TelemetryInternal;
  * Motor: Left back drive motor:    "lb"
  * Motor: Right Back BasicDriveTeleOp Motor:   "rb"
  * Servo: Button Pusher:            "buttonPushServo"
+ * Sensor: Optical Distance Sensor           "ods"
+ * Sensor: Ultrasonic Distance Sensor       "uds"
  *
  * More motors can be added as they are implemented
  */
@@ -35,6 +40,8 @@ public class HardwareRabbi
     public DcMotor lb;
     public DcMotor rb;
     public Servo   buttonPushServo;
+    public OpticalDistanceSensor ods;
+    public UltrasonicSensor uds;
 
     /* local OpMode members. */
     HardwareMap hwMap;
@@ -58,6 +65,8 @@ public class HardwareRabbi
         lb = hwMap.dcMotor.get("lb");
         r  = hwMap.dcMotor.get("r");
         rb = hwMap.dcMotor.get("rb");
+        ods = hwMap.opticalDistanceSensor.get("ods");
+        uds = hwMap.ultrasonicSensor.get("uds");
 
         l .setDirection(DcMotor.Direction.FORWARD);
         lb.setDirection(DcMotor.Direction.FORWARD);
@@ -135,8 +144,6 @@ public class HardwareRabbi
         Thread.sleep((long) time * 100);
         stopDriving();
     }
-<<<<<<< HEAD
-=======
 
     /***
      * Starts driving at a certain power. stopDriving must be called manually afterwards.
@@ -168,12 +175,21 @@ public class HardwareRabbi
         stopDriving();
     }
 
->>>>>>> origin/master
     public void stopDriving() {
         r.setPower(0);
         rb.setPower(0);
         l.setPower(0);
         lb.setPower(0);
+    }
+
+    public void setLeftPower(double power) {
+        l.setPower(power);
+        lb.setPower(power);
+    }
+
+    public void setRightPower(double power) {
+        r.setPower(power);
+        rb.setPower(power);
     }
 }
 
