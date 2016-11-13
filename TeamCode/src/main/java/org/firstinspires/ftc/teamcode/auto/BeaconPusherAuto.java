@@ -27,6 +27,8 @@ public class BeaconPusherAuto extends LinearOpMode {
         // TODO we need a system to decide which side of the beacon to push
         // we need more detailed info on hardware for this
         robot.buttonPushServo.setPosition(45); // TODO find correct values for each side
+
+
         waitForTouch();
         pushButton();
         telemetry.addData("Beacon Push", "SUCCESSFUL");
@@ -34,8 +36,11 @@ public class BeaconPusherAuto extends LinearOpMode {
     }
 
     public void waitForTouch() {
+
         // TODO find a better way for this - empty while loops are terrible practice.
-        while (!robot.buttonPusherTouch.isPressed()) {}
+        while (!robot.buttonPusherTouch.isPressed()) {
+        }
+
     }
 
     public void pushButton() throws InterruptedException {

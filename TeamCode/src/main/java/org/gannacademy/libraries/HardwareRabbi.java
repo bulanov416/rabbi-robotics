@@ -80,18 +80,21 @@ public class HardwareRabbi
         lb = hwMap.dcMotor.get("lb");
         r  = hwMap.dcMotor.get("r");
         rb = hwMap.dcMotor.get("rb");
+        capBallLift = hwMap.dcMotor.get("capBallLift");
         // Set motor direcrion
         l .setDirection(DcMotor.Direction.FORWARD);
         lb.setDirection(DcMotor.Direction.FORWARD);
         r .setDirection(DcMotor.Direction.REVERSE);
         rb.setDirection(DcMotor.Direction.FORWARD);
+        capBallLift.setDirection(DcMotor.Direction.FORWARD);
         // Initially stop all motors
         stopDriving();
         // Make sure the motors are not expecting encoders
-        l .setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        l .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        r .setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        r .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        capBallLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Initialize the servo
         buttonPushServo = hwMap.servo.get("buttonPushServo");
@@ -247,15 +250,19 @@ public class HardwareRabbi
     }
     public void turnRightTicks(double power, int ticks) {
         driveMotorWithEncoders(r, power, ticks);
-        driveMotorWithEncoders(rb, power, ticks);
+        rb.setPower(power);
         driveMotorWithEncoders(l, -power, ticks);
-        driveMotorWithEncoders(lb, -power, ticks);
+        lb.setPower(-power);
+        while (r.isBusy()) {}
+        stopDriving();
     }
     public void turnLeftTicks(double power, int ticks) {
         driveMotorWithEncoders(l, power, ticks);
-        driveMotorWithEncoders(lb, power, ticks);
+        lb.setPower(power);
         driveMotorWithEncoders(r, -power, ticks);
-        driveMotorWithEncoders(rb, -power, ticks);
+        rb.setPower(-power);
+        while (r.isBusy()) {}
+        stopDriving();
     }
     /**
      * Drives at a specified power, for a specified amount of ticks, using encoders.
@@ -264,9 +271,11 @@ public class HardwareRabbi
      */
     public void driveTicks(double power, int ticks) {
         driveMotorWithEncoders(r, power, ticks);
-        driveMotorWithEncoders(rb, power, ticks);
+        rb.setPower(power);
         driveMotorWithEncoders(l, -power, ticks);
-        driveMotorWithEncoders(lb, -power, ticks);
+        lb.setPower(power);
+        while (r.isBusy()) {}
+        stopDriving();
     }
 
 }
