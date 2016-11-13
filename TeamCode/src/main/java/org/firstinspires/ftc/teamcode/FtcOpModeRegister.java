@@ -39,7 +39,8 @@ import org.firstinspires.ftc.teamcode.auto.BeaconPusherAuto;
 import org.firstinspires.ftc.teamcode.debug.FileLoggerAuto;
 import org.firstinspires.ftc.teamcode.debug.UpDown;
 import org.firstinspires.ftc.teamcode.debug.poc.DriveCentimetersPoC;
-import org.firstinspires.ftc.teamcode.debug.poc.EncodersPoC;
+import org.firstinspires.ftc.teamcode.debug.poc.LineFollowPoC;
+import org.firstinspires.ftc.teamcode.debug.poc.TurnDegPoC;
 import org.firstinspires.ftc.teamcode.sensors.ColorTelemetry;
 import org.firstinspires.ftc.teamcode.teleop.BasicDriveTeleOp;
 import org.firstinspires.ftc.teamcode.teleop.FourWheelTeleOp;
@@ -103,7 +104,8 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("Working Beacon Code", BeaconPusherAuto.class);
         manager.register("driveCentimeters() PoC", DriveCentimetersPoC.class);
         manager.register("FileDebug", FileLoggerAuto.class);
-        manager.register("EncodersPoC", EncodersPoC.class);
+        manager.register("LineFollowPoC", LineFollowPoC.class);
+        manager.register("TurnDegPoC", TurnDegPoC.class);
 
         /**
          * Any manual OpMode class registrations should go here.

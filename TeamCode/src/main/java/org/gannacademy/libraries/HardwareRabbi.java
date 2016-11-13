@@ -1,15 +1,13 @@
 package org.gannacademy.libraries;
 
 import com.qualcomm.hardware.adafruit.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsDigitalTouchSensor;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.LightSensor;
-import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.UltrasonicSensor;
+import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.TelemetryInternal;
@@ -34,40 +32,55 @@ import org.firstinspires.ftc.robotcore.internal.TelemetryInternal;
  */
 public class HardwareRabbi
 {
-    /* Public OpMode members. */
-    public DcMotor l;
+    // Motors
+
+    public DcMotorController frontMotorController; // controller vars are good to have, might be useful
+    public DcMotor l; // motor vars are grouped by their controller
     public DcMotor r;
+    public DcMotorController backMotorController;
     public DcMotor lb;
     public DcMotor rb;
+    public DcMotorController capBallLiftController;
+    public DcMotor capBallLift;
+    // Servos
+    public ServoController   buttonPusherController;
     public Servo   buttonPushServo;
-    public OpticalDistanceSensor ods;
+
+    // Sensors
+    public DeviceInterfaceModule            coreDeviceInterface;
+    public ModernRoboticsI2cColorSensor     color;
+    public ModernRoboticsDigitalTouchSensor buttonPusherTouch;
+    // Legacy Sensors
+    public LegacyModule     legacyModule;
+    public LightSensor      light;
     public UltrasonicSensor uds;
 
-    /* local OpMode members. */
-    HardwareMap hwMap;
-    Telemetry telemetry;
-    private ElapsedTime period  = new ElapsedTime();
+    // This class uses the HardwareMap and Telemetry from the OpMode that it is instantiated in.
+    private HardwareMap hwMap;
+    private Telemetry telemetry;
+
+    private ElapsedTime period  = new ElapsedTime(); // for internal use
 
     /* Enum ButtonPushPositions {
         LEFT_BUTTON, REST_POSITION, RIGHT_BUTTON;
     }; */
 
     /* Constructor */
-    public HardwareRabbi(){}
+    public HardwareRabbi(){
+
+    }
 
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap, Telemetry opModeTelemetry) {
         hwMap = ahwMap; // uses the HardwareMap from the OpMode
-        telemetry = opModeTelemetry;
+        telemetry = opModeTelemetry; // allows HardwareRabbi to use telemetry in the context of the opmode
 
-        // Define and Initialize Motors
+        // Initialize Motors
         l  = hwMap.dcMotor.get("l");
         lb = hwMap.dcMotor.get("lb");
         r  = hwMap.dcMotor.get("r");
         rb = hwMap.dcMotor.get("rb");
-        ods = hwMap.opticalDistanceSensor.get("ods");
-        uds = hwMap.ultrasonicSensor.get("uds");
-
+        // Set motor direcrion
         l .setDirection(DcMotor.Direction.FORWARD);
         lb.setDirection(DcMotor.Direction.FORWARD);
         r .setDirection(DcMotor.Direction.REVERSE);
@@ -84,6 +97,12 @@ public class HardwareRabbi
         buttonPushServo = hwMap.servo.get("buttonPushServo");
         // Set it's position
         buttonPushServo.setPosition(90); // replace with vars
+
+        // Initialize the sensors
+        light = hwMap.lightSensor.get("ls");
+        light.enableLed(false); // why is this here?
+
+        uds = hwMap.ultrasonicSensor.get("uds");
     }
 
     /***
@@ -114,15 +133,15 @@ public class HardwareRabbi
      * @param distance  the distance to drive in Centimeters.
      * @throws InterruptedException
      */
-    public void driveCentimeters (double distance, double powerPercentage) throws InterruptedException {
+    public void driveCentimeters (double distance, double power) throws InterruptedException {
         // drives a distance in cm based on a conversion factor from seconds
-        double conversionFactor = 30; // this needs to be filled
-        double powerConversionFactor = powerPercentage / 100; // for converting power
+        Range.clip(power, -1, 1);
+        double conversionFactor = 30; // cm/s
         double distanceInSeconds = distance / conversionFactor;
-        telemetry.addData(Double.toString(distanceInSeconds), Double.toString(distanceInSeconds));
+        telemetry.addData(Double.toString(distanceInSeconds), Double.toString(power));
         telemetry.update();
-        driveSeconds(powerPercentage / 100, distanceInSeconds * powerConversionFactor);
-        // in the future, we should set up a way to drive at lower powers
+        driveSeconds(power, distanceInSeconds / power);
+        // testing a way of driving at lower powers
     }
 
     /***
@@ -130,7 +149,7 @@ public class HardwareRabbi
      * between 1 and -1. Negative power drives the robot backwards.
      *
      * @param power  the power to run the motors at (between -1 and 1)
-     * @param time  the amount of seconds to run the motors for (negative number)
+     * @param time  the amount of seconds to run the motors for (positive number)
      * @throws InterruptedException
      */
     public void driveSeconds(double power, double time) throws InterruptedException {
@@ -141,7 +160,7 @@ public class HardwareRabbi
         rb.setPower(power);
         l.setPower(power);
         lb.setPower(power);
-        Thread.sleep((long) time * 100);
+        Thread.sleep((long) time * 1000);
         stopDriving();
     }
 
@@ -150,13 +169,19 @@ public class HardwareRabbi
      *
      * @param power the power to run the motor at (between -1 and 1)
      */
-    public void startDriving(double power) {
+    public void drive(double power) {
         r.setPower(power);
         rb.setPower(power);
         l.setPower(power);
         lb.setPower(power);
     }
 
+    /**
+     * Turns left at a specified power, for a specified time.
+     * @param power Desired power of turn
+     * @param time Desired time of turning
+     * @throws InterruptedException
+     */
     public void turnLeft(double power, double time) throws InterruptedException {
         r.setPower(power);
         rb.setPower(power);
@@ -166,6 +191,12 @@ public class HardwareRabbi
         stopDriving();
     }
 
+    /**
+     * Turns right at a specified power, for a specified time.
+     * @param power Desired power of turn
+     * @param time Desired time of turning
+     * @throws InterruptedException
+     */
     public void turnRight(double power, double time) throws InterruptedException {
         r.setPower(-power);
         rb.setPower(-power);
@@ -182,14 +213,61 @@ public class HardwareRabbi
         lb.setPower(0);
     }
 
+    /**
+     * Depracated. Use turnLeft() instead.
+     * @param power Motor power
+     */
+    @Deprecated
     public void setLeftPower(double power) {
+        r.setPower(power);
+        rb.setPower(power);
+        l.setPower(-power);
+        lb.setPower(-power);
+    }
+    /**
+     * Deprecated. Use turnRight() instead.
+     * @param power Motor power
+     */
+    @Deprecated
+    public void setRightPower(double power) {
+        r.setPower(-power);
+        rb.setPower(-power);
         l.setPower(power);
         lb.setPower(power);
     }
 
-    public void setRightPower(double power) {
-        r.setPower(power);
-        rb.setPower(power);
+    /* ENCODERS */
+    private void driveMotorWithEncoders(DcMotor motor, double power, int ticks) {
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor.setTargetPosition(ticks);
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor.setPower(power);
+        while (motor.isBusy()) {}
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+    public void turnRightTicks(double power, int ticks) {
+        driveMotorWithEncoders(r, power, ticks);
+        driveMotorWithEncoders(rb, power, ticks);
+        driveMotorWithEncoders(l, -power, ticks);
+        driveMotorWithEncoders(lb, -power, ticks);
+    }
+    public void turnLeftTicks(double power, int ticks) {
+        driveMotorWithEncoders(l, power, ticks);
+        driveMotorWithEncoders(lb, power, ticks);
+        driveMotorWithEncoders(r, -power, ticks);
+        driveMotorWithEncoders(rb, -power, ticks);
+    }
+    /**
+     * Drives at a specified power, for a specified amount of ticks, using encoders.
+     * @param power Desired power of turn
+     * @param ticks Desired number of ticks
+     */
+    public void driveTicks(double power, int ticks) {
+        driveMotorWithEncoders(r, power, ticks);
+        driveMotorWithEncoders(rb, power, ticks);
+        driveMotorWithEncoders(l, -power, ticks);
+        driveMotorWithEncoders(lb, -power, ticks);
+    }
+
 }
 

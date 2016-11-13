@@ -20,11 +20,23 @@ public class DriveCentimetersPoC extends LinearOpMode {
 
         waitForStart();
 
-        robot.driveCentimeters(15, 100);
-        robot.stopDriving();
+        robot.driveCentimeters(30, 1);
         Thread.sleep(1000);
-        robot.driveCentimeters(-15, 100);
+        robot.driveCentimeters(15, -1);
+        robot.driveCentimeters(5, 1);
+        Thread.sleep(500);
+        robot.driveCentimeters(20, -1);
+        telemetry.addData("Full Power test", "COMPLETE");
+        telemetry.update();
+        Thread.sleep(1000);
+        robot.driveCentimeters(30, 0.65);
+        Thread.sleep(1000);
+        robot.driveCentimeters(15, -0.65);
+        robot.driveCentimeters(5, 0.65);
+        Thread.sleep(500);
+        robot.driveCentimeters(20, -0.65);
+        telemetry.addData("65% Power test", "COMPLETE");
+        telemetry.update();
+        Thread.sleep(1000);
     }
-
-
 }
