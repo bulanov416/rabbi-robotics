@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.debug.poc;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import org.gannacademy.libraries.HardwareRabbi;
 
 
 /**
@@ -10,22 +11,21 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  */
 
 @Autonomous(name="Encoders PoC", group="Proofs of Concept")
+// @Disabled
 public class EncodersPoC extends LinearOpMode {
 
-    DcMotor motor;
+    HardwareRabbi robot = new HardwareRabbi();
 
     public void runOpMode() {
-        motor = hardwareMap.dcMotor.get("motor");
-        drive(1, 100);
+        driveWithEncoderPoC(1, 100);
     }
 
-    public void drive(double power, int distance) {
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor.setTargetPosition(distance);
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor.setPower(power);
-        while (motor.isBusy()) {}
-        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public void driveWithEncoderPoC(double power, int distance) {
+        robot.l.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.l.setTargetPosition(distance);
+        robot.l.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.l.setPower(power);
+        while (robot.l.isBusy()) {}
+        robot.l.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-
 }

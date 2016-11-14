@@ -30,8 +30,7 @@ import org.firstinspires.ftc.robotcore.internal.TelemetryInternal;
  *
  * More motors can be added as they are implemented
  */
-public class HardwareRabbi
-{
+public class HardwareRabbi {
     // Motors
 
     public DcMotorController frontMotorController; // controller vars are good to have, might be useful
@@ -75,18 +74,22 @@ public class HardwareRabbi
         hwMap = ahwMap; // uses the HardwareMap from the OpMode
         telemetry = opModeTelemetry; // allows HardwareRabbi to use telemetry in the context of the opmode
 
+        frontMotorController = hwMap.dcMotorController.get("FrontMotorController");
+        backMotorController = hwMap.dcMotorController.get("BackMotorController");
+        capBallLiftController = hwMap.dcMotorController.get("CapBallLiftController");
+
         // Initialize Motors
         l  = hwMap.dcMotor.get("l");
         lb = hwMap.dcMotor.get("lb");
         r  = hwMap.dcMotor.get("r");
         rb = hwMap.dcMotor.get("rb");
-        capBallLift = hwMap.dcMotor.get("capBallLift");
+        //capBallLift = hwMap.dcMotor.get("capBallLift");
         // Set motor direcrion
         l .setDirection(DcMotor.Direction.FORWARD);
         lb.setDirection(DcMotor.Direction.FORWARD);
         r .setDirection(DcMotor.Direction.REVERSE);
         rb.setDirection(DcMotor.Direction.FORWARD);
-        capBallLift.setDirection(DcMotor.Direction.FORWARD);
+        //capBallLift.setDirection(DcMotor.Direction.FORWARD);
         // Initially stop all motors
         stopDriving();
         // Make sure the motors are not expecting encoders
@@ -94,18 +97,19 @@ public class HardwareRabbi
         lb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         r .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        capBallLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //capBallLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Initialize the servo
+        buttonPusherController = hwMap.servoController.get("ButtonPusherController");
         buttonPushServo = hwMap.servo.get("buttonPushServo");
         // Set it's position
         buttonPushServo.setPosition(90); // replace with vars
 
         // Initialize the sensors
-        light = hwMap.lightSensor.get("ls");
-        light.enableLed(false); // why is this here?
+        //light = hwMap.lightSensor.get("ls");
+        //light.enableLed(false); // why is this here?
 
-        uds = hwMap.ultrasonicSensor.get("uds");
+        //uds = hwMap.ultrasonicSensor.get("uds");
     }
 
     /***

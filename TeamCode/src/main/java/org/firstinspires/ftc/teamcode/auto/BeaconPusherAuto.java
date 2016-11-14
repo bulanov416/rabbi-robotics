@@ -3,9 +3,10 @@ package org.firstinspires.ftc.teamcode.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
+import com.qualcomm.robotcore.util.Range;
 import org.gannacademy.libraries.HardwareRabbi;
 
-@Autonomous(name="Working Beacon Pusher")
+@Autonomous(name="Auto Beacon Pusher")
 public class BeaconPusherAuto extends LinearOpMode {
 
     private HardwareRabbi robot = new HardwareRabbi();
@@ -26,9 +27,7 @@ public class BeaconPusherAuto extends LinearOpMode {
         robot.turnLeftTicks(1, 1);
         // TODO we need a system to decide which side of the beacon to push
         // we need more detailed info on hardware for this
-        robot.buttonPushServo.setPosition(45); // TODO find correct values for each side
-
-
+        robot.buttonPushServo.setPosition(rest_position); // TODO find correct values for each side
         waitForTouch();
         pushButton();
         telemetry.addData("Beacon Push", "SUCCESSFUL");
@@ -38,8 +37,7 @@ public class BeaconPusherAuto extends LinearOpMode {
     public void waitForTouch() {
 
         // TODO find a better way for this - empty while loops are terrible practice.
-        while (!robot.buttonPusherTouch.isPressed()) {
-        }
+        while (!robot.buttonPusherTouch.isPressed()) {}
 
     }
 
@@ -70,5 +68,13 @@ public class BeaconPusherAuto extends LinearOpMode {
                     robot.buttonPushServo.setPosition(10);
                 }
             }
+    }
+
+    public void scaleServoValues() {
+        Range.scale(beacon_left_button_pos, 0, 180, 0, 255);
+        Range.scale(beacon_right_button_pos, 0, 180, 0, 255);
+        Range.scale(rest_position, 0, 180, 0, 255);
+        telemetry.addData("Beacon Values", "SET");
+        telemetry.update();
     }
 }
