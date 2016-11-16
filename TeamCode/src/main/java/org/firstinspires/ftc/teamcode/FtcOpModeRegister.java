@@ -38,9 +38,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 import org.firstinspires.ftc.teamcode.auto.BeaconPusherAuto;
 import org.firstinspires.ftc.teamcode.debug.FileLoggerAuto;
 import org.firstinspires.ftc.teamcode.debug.UpDown;
-import org.firstinspires.ftc.teamcode.debug.poc.DriveCentimetersPoC;
-import org.firstinspires.ftc.teamcode.debug.poc.LineFollowPoC;
-import org.firstinspires.ftc.teamcode.debug.poc.TurnDegPoC;
+import org.firstinspires.ftc.teamcode.debug.poc.*;
 import org.firstinspires.ftc.teamcode.sensors.ColorTelemetry;
 import org.firstinspires.ftc.teamcode.teleop.BasicDriveTeleOp;
 import org.firstinspires.ftc.teamcode.teleop.FourWheelTeleOp;
@@ -97,6 +95,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("Assisted TeleOp Button Pusher", ButtonPusherTeleOp.class); // TeleOp
         manager.register("ColorTelemetry", ColorTelemetry.class); // TeleOp
         manager.register("UpDown", UpDown.class); // TeleOp
+        manager.register("Cap Ball Lift PoC", CapBallLiftPoC.class);
         manager.register("BasicDriveTeleOp to and Push Button", BeaconPusherAuto.class); // Autonomous
         //manager.register("Autonomous Button Pusher", AutoButtonPusher.class);
         manager.register("ColorTelemetry", ColorTelemetry.class);
@@ -106,6 +105,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("FileDebug", FileLoggerAuto.class);
         manager.register("LineFollowPoC", LineFollowPoC.class);
         manager.register("TurnDegPoC", TurnDegPoC.class);
+        manager.register("Turn from Line PoC", TurnFromLinePoC.class);
 
         /**
          * Any manual OpMode class registrations should go here.
