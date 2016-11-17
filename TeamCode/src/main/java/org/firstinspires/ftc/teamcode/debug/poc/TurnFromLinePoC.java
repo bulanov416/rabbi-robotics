@@ -25,19 +25,25 @@ public class TurnFromLinePoC extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            telemetry.addData("Sensor Value", robot.eods.getLightDetected());
-            robot.drive(0.6);
-            while (robot.eods.getLightDetected() < 0.37) {Thread.sleep(60);}
+            telemetry.addData("Sensor Value", robot.eods.getRawLightDetected());
+            telemetry.addData("Robot Drive", "Queued");
+            robot.drive(-0.6);
+            telemetry.addData("Robot Drive", "Started");
+            while (robot.eods.getRawLightDetected() < 0.04) {
+                telemetry.addData("Loop", "Running");
+                Thread.sleep(60);
+            }
+            robot.stopDriving();
             robot.driveCentimeters(19.5, 0.6);
             robot.stopDriving();
             // turn until the line
             robot.setLeftPower(0.6);
-            while (robot.eods.getLightDetected() < 0.37) {Thread.sleep(50);}
+            while (robot.eods.getRawLightDetected() < 0.04) {Thread.sleep(50);}
             robot.stopDriving();
             // drive up to the beacon
-            /*robot.driveCentimeters(10, 0.6);
+            robot.driveCentimeters(10, 0.6);
             // detect color and set servo
-            pushButton();
+            /*pushButton();
             // drive up to the beacon and push it
             robot.driveCentimeters(5, 0.6);
             robot.stopDriving();

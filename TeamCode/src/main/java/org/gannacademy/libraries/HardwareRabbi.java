@@ -84,7 +84,7 @@ public class HardwareRabbi {
         lb = hwMap.dcMotor.get("lb");
         r  = hwMap.dcMotor.get("r");
         rb = hwMap.dcMotor.get("rb");
-        // capBallLift = hwMap.dcMotor.get("capBallLift");
+        capBallLift = hwMap.dcMotor.get("capBallLift");
         // Set motor direcrion
         l .setDirection(DcMotor.Direction.FORWARD);
         lb.setDirection(DcMotor.Direction.FORWARD);
@@ -228,7 +228,6 @@ public class HardwareRabbi {
      * Depracated. Use turnLeft() instead.
      * @param power Motor power
      */
-    @Deprecated
     public void setLeftPower(double power) {
         r.setPower(power);
         rb.setPower(power);
@@ -239,7 +238,6 @@ public class HardwareRabbi {
      * Deprecated. Use turnRight() instead.
      * @param power Motor power
      */
-    @Deprecated
     public void setRightPower(double power) {
         r.setPower(-power);
         rb.setPower(-power);

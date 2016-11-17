@@ -67,7 +67,7 @@ public class BasicDriveTeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        while (true) {
+        while (opModeIsActive()) {
             l = hardwareMap.dcMotor.get("l");
             r = hardwareMap.dcMotor.get("r");
             rb = hardwareMap.dcMotor.get("rb");
@@ -155,8 +155,8 @@ public class BasicDriveTeleOp extends LinearOpMode {
     }
 */
         //This function should be used for sleep because it is setup to throw InterruptedException.
-
     }
+
 
 
 }

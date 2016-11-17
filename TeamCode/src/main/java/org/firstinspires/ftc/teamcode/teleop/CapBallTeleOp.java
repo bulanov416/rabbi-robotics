@@ -15,15 +15,15 @@ import org.gannacademy.libraries.HardwareRabbi;
 public class CapBallTeleOp extends LinearOpMode {
 
     HardwareRabbi robot = new HardwareRabbi();
-    DcMotor capBallController;
-    HiTechnicNxtUltrasonicSensor ultrasonicSensor;
+
+    double right_power;
+    double left_power;
 
     public CapBallTeleOp() {}
 
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, telemetry);
-        capBallController = hardwareMap.dcMotor.get("capBallController");
 
         waitForStart();
 
@@ -37,13 +37,13 @@ public class CapBallTeleOp extends LinearOpMode {
                 robot.stopDriving();
                 lowerBall();
             }
-            capBallController.setPower(0);
+            robot.capBallLift.setPower(0);
         }
     }
 
     public void drive() {
-        double left_power = gamepad1.left_stick_y;
-        double right_power = gamepad1.right_stick_y;
+        left_power = gamepad1.left_stick_y;
+        right_power = gamepad1.right_stick_y;
         Range.clip(left_power, -1, 1);
         Range.clip(right_power, -1, 1);
         robot.l.setPower(left_power);
@@ -53,10 +53,10 @@ public class CapBallTeleOp extends LinearOpMode {
     }
 
     public void liftBall() {
-        capBallController.setPower(0.4);
+        robot.capBallLift.setPower(0.4);
     }
 
     public void lowerBall() {
-        capBallController.setPower(-0.4);
+        robot.capBallLift.setPower(-0.4);
     }
 }
