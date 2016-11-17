@@ -91,23 +91,21 @@ public class FtcOpModeRegister implements OpModeRegister {
          * Only register an OpMode if it is in a testing or working state!
          */
         AnnotatedOpModeRegistrar.register(manager);
-        manager.register("BasicDriveTeleOp", BasicDriveTeleOp.class); // TeleOp
-        manager.register("Four Wheel BasicDriveTeleOp", FourWheelTeleOp.class); // TeleOp
+        // manager.register("BasicDriveTeleOp", BasicDriveTeleOp.class); // TeleOp
+        // manager.register("Four Wheel BasicDriveTeleOp", FourWheelTeleOp.class); // TeleOp
         manager.register("Assisted TeleOp Button Pusher", ButtonPusherTeleOp.class); // TeleOp
-        manager.register("ColorTelemetry", ColorTelemetry.class); // TeleOp
-        manager.register("UpDown", UpDown.class); // TeleOp
-        manager.register("Cap Ball Lift PoC", CapBallLiftPoC.class);
-        manager.register("BasicDriveTeleOp to and Push Button", BeaconPusherAuto.class); // Autonomous
-        manager.register("Simplified 4WD TeleOp", SimpleDriveTeleOp.class);
-        //manager.register("Autonomous Button Pusher", AutoButtonPusher.class);
-        manager.register("ColorTelemetry", ColorTelemetry.class);
-        manager.register("UpDown", UpDown.class);
-        manager.register("Working Beacon Code", BeaconPusherAuto.class);
-        manager.register("driveCentimeters() PoC", DriveCentimetersPoC.class);
-        manager.register("FileDebug", FileLoggerAuto.class);
-        manager.register("LineFollowPoC", LineFollowPoC.class);
-        manager.register("TurnDegPoC", TurnDegPoC.class);
-        manager.register("Turn from Line PoC", TurnFromLinePoC.class);
+        // manager.register("ColorTelemetry", ColorTelemetry.class); // TeleOp
+        // manager.register("UpDown", UpDown.class); // TeleOp
+        manager.register("Cap Ball Lift PoC", CapBallLiftPoC.class); // TeleOp
+        manager.register("Simplified 4WD TeleOp", SimpleDriveTeleOp.class); // TeleOp
+        /* ----------------------------------------------------------------------------*/
+        // manager.register("Drive to and Push Button", BeaconPusherAuto.class); // Autonomous
+        manager.register("Autonomous Beacon Pusher", BeaconPusherAuto.class); // Autonomous
+        manager.register("driveCentimeters() PoC", DriveCentimetersPoC.class); // Autonomous
+        // manager.register("FileDebug", FileLoggerAuto.class); // Autonomous
+        // manager.register("LineFollowPoC", LineFollowPoC.class); // Autonomous
+        // manager.register("TurnDegPoC", TurnDegPoC.class); // Autonomous
+        manager.register("Turn from Line PoC", TurnFromLinePoC.class); // Autonomous
 
         /**
          * Any manual OpMode class registrations should go here.

@@ -155,6 +155,7 @@ public class BasicDriveTeleOp extends LinearOpMode {
     }
 */
         //This function should be used for sleep because it is setup to throw InterruptedException.
+        stop();
     }
 
 
