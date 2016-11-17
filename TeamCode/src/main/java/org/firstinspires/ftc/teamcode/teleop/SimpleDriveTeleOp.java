@@ -1,25 +1,20 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-import com.qualcomm.hardware.hitechnic.HiTechnicNxtUltrasonicSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 import org.gannacademy.libraries.HardwareRabbi;
 
 /**
- * Created by Nathan on 11/10/2016.
+ * Created by Nathan on 11/17/2016.
  */
-@TeleOp(name = "Cap Ball TeleOp")
-// @Disabled
-public class CapBallTeleOp extends LinearOpMode {
+@TeleOp(name="Simplified 4WD TeleOp")
+public class SimpleDriveTeleOp extends LinearOpMode {
 
     HardwareRabbi robot = new HardwareRabbi();
 
-    double right_power;
     double left_power;
-
-    public CapBallTeleOp() {}
+    double right_power;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -29,16 +24,8 @@ public class CapBallTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
             drive();
-            if (gamepad1.a) {
-                robot.stopDriving();
-                liftBall();
-            }
-            if (gamepad1.b) {
-                robot.stopDriving();
-                lowerBall();
-            }
-            robot.capBallLift.setPower(0);
         }
+        stop();
     }
 
     public void drive() {
@@ -49,14 +36,6 @@ public class CapBallTeleOp extends LinearOpMode {
         robot.l.setPower(left_power);
         robot.lb.setPower(left_power);
         robot.r.setPower(right_power);
-        robot.rb.setPower(-right_power);
-    }
-
-    public void liftBall() {
-        robot.capBallLift.setPower(0.4);
-    }
-
-    public void lowerBall() {
-        robot.capBallLift.setPower(-0.4);
+        robot.rb.setPower(right_power);
     }
 }

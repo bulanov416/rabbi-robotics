@@ -43,6 +43,7 @@ import org.firstinspires.ftc.teamcode.sensors.ColorTelemetry;
 import org.firstinspires.ftc.teamcode.teleop.BasicDriveTeleOp;
 import org.firstinspires.ftc.teamcode.teleop.FourWheelTeleOp;
 import org.firstinspires.ftc.teamcode.teleop.ButtonPusherTeleOp;
+import org.firstinspires.ftc.teamcode.teleop.SimpleDriveTeleOp;
 
 /**
  * {@link FtcOpModeRegister} is responsible for registering opmodes for use in an FTC game.
@@ -97,6 +98,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("UpDown", UpDown.class); // TeleOp
         manager.register("Cap Ball Lift PoC", CapBallLiftPoC.class);
         manager.register("BasicDriveTeleOp to and Push Button", BeaconPusherAuto.class); // Autonomous
+        manager.register("Simplified 4WD TeleOp", SimpleDriveTeleOp.class);
         //manager.register("Autonomous Button Pusher", AutoButtonPusher.class);
         manager.register("ColorTelemetry", ColorTelemetry.class);
         manager.register("UpDown", UpDown.class);
