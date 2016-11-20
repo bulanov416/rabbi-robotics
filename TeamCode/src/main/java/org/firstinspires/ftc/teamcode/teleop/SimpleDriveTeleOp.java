@@ -36,6 +36,6 @@ public class SimpleDriveTeleOp extends LinearOpMode {
         robot.l.setPower(left_power);
         robot.lb.setPower(left_power);
         robot.r.setPower(right_power);
-        robot.rb.setPower(right_power);
+        robot.rb.setPower(-right_power);
     }
 }

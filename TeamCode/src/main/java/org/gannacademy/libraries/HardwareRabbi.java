@@ -1,16 +1,9 @@
 package org.gannacademy.libraries;
 
-import com.qualcomm.hardware.adafruit.BNO055IMU;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsDigitalTouchSensor;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.internal.TelemetryInternal;
 
 /**
  * This is NOT an opmode.
@@ -24,7 +17,7 @@ import org.firstinspires.ftc.robotcore.internal.TelemetryInternal;
  * Motor: Right drive motor:        "r"
  * Motor: Left back drive motor:    "lb"
  * Motor: Right Back BasicDriveTeleOp Motor:   "rb"
- * Servo: Button Pusher:            "buttonPushServo"
+ * Servo: Button Pusher:            "button_pusher"
  * Sensor: Optical Distance Sensor           "ods"
  * Sensor: Ultrasonic Distance Sensor       "uds"
  *
@@ -40,10 +33,15 @@ public class HardwareRabbi {
     public DcMotor lb;
     public DcMotor rb;
     public DcMotorController capBallLiftController;
-    public DcMotor capBallLift;
+    public DcMotor lift;
+    public DcMotor cap;
+    //public DcMotor capBallLift;
+
     // Servos
     public ServoController   buttonPusherController;
-    public Servo   buttonPushServo;
+    public Servo   button_pusher;
+    public Servo   claw_servo;
+    public Servo   cap_deploy;
 
     // Sensors
     public DeviceInterfaceModule coreDeviceInterface;
@@ -66,9 +64,7 @@ public class HardwareRabbi {
     }; */
 
     /* Constructor */
-    public HardwareRabbi(){
-
-    }
+    public HardwareRabbi(){}
 
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap, Telemetry opModeTelemetry) {
@@ -84,13 +80,15 @@ public class HardwareRabbi {
         lb = hwMap.dcMotor.get("lb");
         r  = hwMap.dcMotor.get("r");
         rb = hwMap.dcMotor.get("rb");
-        capBallLift = hwMap.dcMotor.get("capBallLift");
+        lift = hwMap.dcMotor.get("lift");
+        cap = hwMap.dcMotor.get("cap");
         // Set motor direcrion
         l .setDirection(DcMotor.Direction.FORWARD);
         lb.setDirection(DcMotor.Direction.FORWARD);
         r .setDirection(DcMotor.Direction.REVERSE);
-        rb.setDirection(DcMotor.Direction.FORWARD);
-        capBallLift.setDirection(DcMotor.Direction.FORWARD);
+        rb.setDirection(DcMotor.Direction.REVERSE);
+        lift.setDirection(DcMotor.Direction.FORWARD);
+        cap.setDirection(DcMotor.Direction.FORWARD);
         // Initially stop all motors
         stopDriving();
         // Make sure the motors are not expecting encoders
@@ -98,13 +96,16 @@ public class HardwareRabbi {
         lb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         r .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        capBallLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        cap.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Initialize the servo
-        buttonPusherController = hwMap.servoController.get("ButtonPusherController");
-        buttonPushServo = hwMap.servo.get("buttonPushServo");
+        // buttonPusherController = hwMap.servoController.get("ButtonPusherController");
+        button_pusher = hwMap.servo.get("pusher");
+        //claw_servo = hwMap.servo.get("clawservo");
+        cap_deploy = hwMap.servo.get("deploy");
         // Set it's position
-        buttonPushServo.setPosition(90); // replace with vars
+        button_pusher.setPosition(90); // replace with vars
         // Initialize the sensors
         color = hwMap.colorSensor.get("color");
         eods = hwMap.opticalDistanceSensor.get("eods");
@@ -152,7 +153,7 @@ public class HardwareRabbi {
         telemetry.addData(Double.toString(distanceInSeconds), Double.toString(power));
         telemetry.update();
         driveSeconds(power, distanceInSeconds / power);
-        // testing a way of driving at lower powers
+        while (l.isBusy()) {Thread.sleep(50);}
     }
 
     /***
@@ -170,7 +171,8 @@ public class HardwareRabbi {
         r.setPower(power);
         rb.setPower(power);
         l.setPower(power);
-        lb.setPower(power);
+        lb.setPower(-power);
+        telemetry.addData(Double.toString(power), "SET");
         Thread.sleep((long) time * 1000);
         stopDriving();
     }

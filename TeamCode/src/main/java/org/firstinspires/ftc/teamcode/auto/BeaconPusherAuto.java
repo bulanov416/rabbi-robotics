@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.Range;
 import org.gannacademy.libraries.HardwareRabbi;
 
@@ -27,7 +26,7 @@ public class BeaconPusherAuto extends LinearOpMode {
         robot.turnLeftTicks(1, 1);
         // TODO we need a system to decide which side of the beacon to push
         // we need more detailed info on hardware for this
-        robot.buttonPushServo.setPosition(rest_position); // TODO find correct values for each side
+        robot.button_pusher.setPosition(rest_position); // TODO find correct values for each side
         waitForTouch();
         pushButton();
         telemetry.addData("Beacon Push", "SUCCESSFUL");
@@ -44,7 +43,7 @@ public class BeaconPusherAuto extends LinearOpMode {
     public void pushButton() throws InterruptedException {
 
             int red, blue;
-            robot.buttonPushServo.setPosition(rest_position);
+            robot.button_pusher.setPosition(rest_position);
             // returns string in this format: "aarrggb". for example "1924873409"
             String colorValues = Integer.toString(robot.color.argb());
             if (colorValues == "") { // this occurs when the color changes too quickly
@@ -58,14 +57,14 @@ public class BeaconPusherAuto extends LinearOpMode {
 
             // this statement assumes that we are on the red team, and the sensor is on the left
             if (red > blue) {
-                robot.buttonPushServo.setPosition(beacon_left_button_pos);
+                robot.button_pusher.setPosition(beacon_left_button_pos);
             } else if (blue > red) {
-                robot.buttonPushServo.setPosition(beacon_right_button_pos);
+                robot.button_pusher.setPosition(beacon_right_button_pos);
 
                 if (red > blue) {
-                    robot.buttonPushServo.setPosition(160);
+                    robot.button_pusher.setPosition(160);
                 } else if (blue > red) {
-                    robot.buttonPushServo.setPosition(10);
+                    robot.button_pusher.setPosition(10);
                 }
             }
     }

@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.debug.poc;
 
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.gannacademy.libraries.HardwareRabbi;
 
@@ -41,7 +39,7 @@ public class TurnFromLinePoC extends LinearOpMode {
             while (robot.eods.getRawLightDetected() < 0.04) {Thread.sleep(50);}
             robot.stopDriving();
             // drive up to the beacon
-            robot.driveCentimeters(10, 0.6);
+            robot.driveCentimeters(20, 0.6);
             // detect color and set servo
             /*pushButton();
             // drive up to the beacon and push it
@@ -63,7 +61,7 @@ public class TurnFromLinePoC extends LinearOpMode {
     public void pushButton() throws InterruptedException {
 
         int red, blue;
-        robot.buttonPushServo.setPosition(restPosition);
+        robot.button_pusher.setPosition(restPosition);
         // returns string in this format: "aarrggb". for example "1924873409"
         String colorValues = Integer.toString(robot.color.argb());
         if (colorValues == "") { // this occurs when the color changes too quickly
@@ -77,9 +75,9 @@ public class TurnFromLinePoC extends LinearOpMode {
 
         // this statement assumes that we are on the red team, and the sensor is on the left
         if (red > blue) {
-            robot.buttonPushServo.setPosition(leftButtonPos);
+            robot.button_pusher.setPosition(leftButtonPos);
         } else if (blue > red) {
-            robot.buttonPushServo.setPosition(rightButtonPos);
+            robot.button_pusher.setPosition(rightButtonPos);
         }
     }
 }

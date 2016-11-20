@@ -32,14 +32,16 @@ public class CapBallTeleOp extends LinearOpMode {
             if (gamepad1.dpad_up) {
                 robot.stopDriving();
                 telemetry.addData("Button Pushed", "DPAD_UP");
+                telemetry.update();
                 while (gamepad1.dpad_up) {liftBall();}
             }
-            if (gamepad1.dpad_down) {
+            else if (gamepad1.dpad_down) {
                 robot.stopDriving();
                 telemetry.addData("Button Pushed", "DPAD_DOWN");
+                telemetry.update();
                 while (gamepad1.dpad_down) {lowerBall();}
             }
-            robot.capBallLift.setPower(0);
+            robot.lift.setPower(0);
         }
         stop();
     }
@@ -56,11 +58,12 @@ public class CapBallTeleOp extends LinearOpMode {
     }
 
     public void liftBall() {
-        telemetry.addData("Cap Ball Lifting", "");
-        robot.capBallLift.setPower(0.4);
+        telemetry.addData("Cap Ball Motor", "LIFTING");
+        robot.lift.setPower(1);
     }
 
     public void lowerBall() {
-        robot.capBallLift.setPower(-0.4);
+        telemetry.addData("Cap Ball Motor", "LOWERING");       
+        robot.lift.setPower(-1);
     }
 }

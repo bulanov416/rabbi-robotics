@@ -33,19 +33,19 @@ public class FullTeleOp extends LinearOpMode {
             setPowerLeft(power_l);
 
             if (gamepad2.left_bumper) {
-                robot.capBallLift.setPower(-1);
+                robot.lift.setPower(-1);
             }  else if (gamepad2.right_bumper){
-                robot.capBallLift.setPower(1);
+                robot.lift.setPower(1);
             }  else {
-                robot.capBallLift.setPower(0);
+                robot.lift.setPower(0);
             }
 
             if (gamepad2.dpad_left) {
-                robot.buttonPushServo.setPosition(beacon_left_button_pos);
+                robot.button_pusher.setPosition(beacon_left_button_pos);
             } else if (gamepad2.dpad_right) {
-                robot.buttonPushServo.setPosition(beacon_right_button_pos);
+                robot.button_pusher.setPosition(beacon_right_button_pos);
             } else if (gamepad2.dpad_down){
-                robot.buttonPushServo.setPosition(rest_position);
+                robot.button_pusher.setPosition(rest_position);
             }
 
         }

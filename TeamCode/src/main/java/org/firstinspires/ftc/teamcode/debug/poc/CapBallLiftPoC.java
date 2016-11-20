@@ -28,15 +28,15 @@ public class CapBallLiftPoC extends LinearOpMode{
             driveBasic();
             // Prevents motor conflict
             if (gamepad1.dpad_up && gamepad1.dpad_down) {
-                robot.capBallLift.setPower(0);
+                robot.lift.setPower(0);
             }
             // move the ball up
             if (gamepad1.dpad_up) {
-                robot.capBallLift.setPower(1);
+                robot.lift.setPower(1);
             }
             // move the ball down
             if (gamepad1.dpad_down) {
-                robot.capBallLift.setPower(-1);
+                robot.lift.setPower(-1);
             }
         }
     }
