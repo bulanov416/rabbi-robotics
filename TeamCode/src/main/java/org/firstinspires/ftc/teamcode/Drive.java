@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 
@@ -16,13 +17,11 @@ public class Drive extends LinearOpMode {
     DcMotor r;
     DcMotor lb;
     DcMotor rb;
-    //DcMotor lift;
-   /* DcMotor fly1;
-    DcMotor fly2;
-    Servo bring;
-    Servo clasp1;
-    Servo clasp2;
-*/
+    DcMotor lift;
+    DcMotor cap;
+    Servo claw_servo;
+    Servo button_pusher;
+    Servo cap_deploy;
 
     public Drive() {
 
@@ -74,14 +73,12 @@ public class Drive extends LinearOpMode {
             r = hardwareMap.dcMotor.get("r");
             rb = hardwareMap.dcMotor.get("rb");
             lb = hardwareMap.dcMotor.get("lb");
-           // lift = hardwareMap.dcMotor.get("lift");
-       /* fly1 = hardwareMap.dcMotor.get("fly1");
-        fly2 = hardwareMap.dcMotor.get("fly2");
-        bring = hardwareMap.servo.get("bring");
-        clasp2 = hardwareMap.servo.get("clasp2");
-        clasp1 = hardwareMap.servo.get("clasp1");
-*/
-            //fly2.setDirection(DcMotor.Direction.REVERSE);
+            lift = hardwareMap.dcMotor.get("lift");
+            cap = hardwareMap.dcMotor.get("cap");
+            claw_servo = hardwareMap.servo.get("clawservo");
+            button_pusher = hardwareMap.servo.get("pusher");
+            cap_deploy = hardwareMap.servo.get("deploy");
+
             r.setDirection(DcMotor.Direction.REVERSE);
             rb.setDirection(DcMotor.Direction.REVERSE);
 
@@ -98,78 +95,36 @@ public class Drive extends LinearOpMode {
             rb.setPower(l_right_drive_power);
             lb.setPower(l_left_drive_power);
 
-           /* if (gamepad1.dpad_up) {
+            if (gamepad1.left_bumper) {
                 lift.setPower(1);
             }
-            if (gamepad1.dpad_left) {
-                lift.setPower(0);
-            }
-            if (gamepad1.dpad_down) {
+
+            if (gamepad1.right_bumper) {
                 lift.setPower(-1);
             }
-          /*  while (gamepad1.dpad_up) {
-                fly1.setPower(1);
-                fly2.setPower(1);
+            if (gamepad1.dpad_up) {
+                cap_deploy.setPosition(1);
+            }
+            if (gamepad1.dpad_down) {
+                cap_deploy.setPosition(0);
+            }
+            if (gamepad1.dpad_left) {
+                claw_servo.setPosition(1);
+            }
+            if (gamepad1.x) {
+                cap.setPower(1);
+            }
+            if (gamepad1.b) {
+                cap.setPower(-1);
             }
 
-
-            //When button a is pressed, the ball function is executed.
-            if (gamepad2.dpad_down) {
-
-                bring.setPosition(1);
-
+            if (gamepad1.y) {
+                lift.setPower(0);
+                cap.setPower(0);
             }
 
-            if (gamepad2.dpad_up) {
-
-                clasp2.setPosition(0);
-
-            }
-
-            if (gamepad2.dpad_left) {
-
-                clasp2.setPosition(1);
-                clasp1.setPosition(1);
-
-            }
-
-            if (gamepad2.dpad_right) {
-
-                clasp2.setPosition(0);
-                clasp1.setPosition(0);
-
-            }
-            if (!gamepad1.dpad_down) {
-                fly1.setPower(0);
-                fly2.setPower(0);
-            }
-            fly1.setPower(0);
-            fly2.setPower(0);
-        }
-        /*clasp2.setPosition(1);
-        sleep(1000);
-        bring.setPosition(0.9);
-        sleep(2000);
-        clasp1.setPosition(0.5);
-        clasp2.setPosition(0.5);*/
         }
 
-        //This is the function to pick up balls and bring them to the launcher
-       /* public void ball() {
-
-        clasp1.setPosition(1);
-        clasp2.setPosition(1);
-        sleep(1000);
-        bring.setPosition(0.9);
-        sleep(2000);
-        clasp1.setPosition(0.5);
-        clasp2.setPosition(0.5);
 
     }
-*/
-        //This function should be used for sleep because it is setup to throw InterruptedException.
-
-    }
-
-
 }
