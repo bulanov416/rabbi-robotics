@@ -20,7 +20,7 @@ public class ColorTelemetry extends LinearOpMode {
             colorSensor = hardwareMap.colorSensor.get("color");
 
             colorValues = Integer.toString(colorSensor.argb());
-            if (colorValues != "") { // this occurs when the color changes too quickly
+            if (colorValues != "") { // this occurs when the beaconColor changes too quickly
                 red = Integer.valueOf(colorValues.substring(2, 4));
                 blue = Integer.valueOf(colorValues.substring(6, 8));
             } else {
@@ -29,8 +29,8 @@ public class ColorTelemetry extends LinearOpMode {
             }
             telemetry.addData("red", red);
             telemetry.addData("blue", blue);
-            telemetry.addData("dominant color", red > blue ? "red" : "blue");
-            telemetry.addData("Full color", colorValues);
+            telemetry.addData("dominant beaconColor", red > blue ? "red" : "blue");
+            telemetry.addData("Full beaconColor", colorValues);
 
             telemetry.update();
         }

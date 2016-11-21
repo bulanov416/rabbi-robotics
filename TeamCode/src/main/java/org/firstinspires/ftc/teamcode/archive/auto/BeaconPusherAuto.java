@@ -46,7 +46,7 @@ public class BeaconPusherAuto extends LinearOpMode {
             robot.button_pusher.setPosition(rest_position);
             // returns string in this format: "aarrggb". for example "1924873409"
             String colorValues = Integer.toString(robot.color.argb());
-            if (colorValues == "") { // this occurs when the color changes too quickly
+            if (colorValues == "") { // this occurs when the beaconColor changes too quickly
                 red = 0;
                 blue = 0;
             } else {

@@ -28,7 +28,7 @@ public class ButtonPusherTeleOp extends LinearOpMode {
         lb = hardwareMap.dcMotor.get("lb");
         rb = hardwareMap.dcMotor.get("br");
         buttonpusher = hardwareMap.servo.get("buttonpusher servo");
-        colorSensor = hardwareMap.colorSensor.get("buttonpusher color");
+        colorSensor = hardwareMap.colorSensor.get("buttonpusher beaconColor");
 
 
         waitForStart();

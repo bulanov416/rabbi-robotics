@@ -40,7 +40,7 @@ public class TurnFromLinePoC extends LinearOpMode {
             robot.stopDriving();
             // drive up to the beacon
             robot.driveCentimeters(20, 0.6);
-            // detect color and set servo
+            // detect beaconColor and set servo
             /*pushButton();
             // drive up to the beacon and push it
             robot.driveCentimeters(5, 0.6);
@@ -64,7 +64,7 @@ public class TurnFromLinePoC extends LinearOpMode {
         robot.button_pusher.setPosition(restPosition);
         // returns string in this format: "aarrggb". for example "1924873409"
         String colorValues = Integer.toString(robot.color.argb());
-        if (colorValues == "") { // this occurs when the color changes too quickly
+        if (colorValues == "") { // this occurs when the beaconColor changes too quickly
             red = 0;
             blue = 0;
         } else {
