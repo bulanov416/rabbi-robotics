@@ -35,15 +35,10 @@ import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
-import org.firstinspires.ftc.teamcode.auto.BeaconPusherAuto;
-import org.firstinspires.ftc.teamcode.debug.FileLoggerAuto;
-import org.firstinspires.ftc.teamcode.debug.UpDown;
-import org.firstinspires.ftc.teamcode.debug.poc.*;
-import org.firstinspires.ftc.teamcode.sensors.ColorTelemetry;
-import org.firstinspires.ftc.teamcode.teleop.BasicDriveTeleOp;
-import org.firstinspires.ftc.teamcode.teleop.FourWheelTeleOp;
-import org.firstinspires.ftc.teamcode.teleop.ButtonPusherTeleOp;
-import org.firstinspires.ftc.teamcode.teleop.SimpleDriveTeleOp;
+import org.firstinspires.ftc.teamcode.archive.auto.BeaconPusherAuto;
+import org.firstinspires.ftc.teamcode.archive.debug.poc.*;
+import org.firstinspires.ftc.teamcode.archive.teleop.ButtonPusherTeleOp;
+import org.firstinspires.ftc.teamcode.archive.teleop.SimpleDriveTeleOp;
 
 /**
  * {@link FtcOpModeRegister} is responsible for registering opmodes for use in an FTC game.
