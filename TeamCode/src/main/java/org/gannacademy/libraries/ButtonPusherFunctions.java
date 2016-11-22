@@ -18,11 +18,10 @@ public class ButtonPusherFunctions {
     }
 
     public boolean robotIsOnWhite() {
-        if (robot.eods.getLightDetected() >= 0.38) {return true;} else {return false;}
+        return robot.eods.getLightDetected() >= 0.38;
     }
 
     public void setPusherPosition() throws InterruptedException {
-
         int red, blue;
         robot.button_pusher.setPosition(rest_position);
         // returns string in this format: "aarrggb". for example "1924873409"
@@ -49,5 +48,4 @@ public class ButtonPusherFunctions {
             }
         }
     }
-
 }

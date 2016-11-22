@@ -13,6 +13,4 @@ public class SensorController {
         robot.telemetry.addLine("Using SensorController v2.0.0-161126");
         robot.telemetry.update();
     }
-
-    public double getReflectedLight() {return robot.eods.getLightDetected();}
 }
