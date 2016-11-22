@@ -39,6 +39,22 @@ public class DriveController {
         robot.lb.setPower(0);
         robot.rb.setPower(0);
     }
+
+    public void turnLeft(double power) {
+        setDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.l.setPower(power);
+        robot.r.setPower(-power);
+        robot.lb.setPower(power);
+        robot.rb.setPower(-power);
+    }
+
+    public void turnRight(double power) {
+        setDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.l.setPower(-power);
+        robot.r.setPower(power);
+        robot.lb.setPower(-power);
+        robot.rb.setPower(power);
+    }
     /* *********************
      * MOTOR OPTION METHODS*
      ***********************/
