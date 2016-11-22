@@ -39,7 +39,7 @@ public class HardwarePlatform {
 
     public void init(HardwareMap hwMap, Telemetry telemetry) {
         hardwareMap = hwMap;
-        telemetry = telemetry;
+        this.telemetry = telemetry;
         telemetry.addLine("4466 RABBI - HardwarePlatform v2.0.0-161121"); // ask Nathan about changing this number
         telemetry.update();
         l = hardwareMap.dcMotor.get("l");
