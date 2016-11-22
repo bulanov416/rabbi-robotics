@@ -27,9 +27,9 @@ public class DriveController {
         robot.rb.setPower(power);
     }
 
-    public void driveSeconds(long milliseconds, int power) throws InterruptedException {
+    public void driveSeconds(double seconds, double power) throws InterruptedException {
         drive(power);
-        Thread.sleep(milliseconds);
+        Thread.sleep((long) (seconds * 0.001));
         stopDriving();
     }
 
@@ -53,6 +53,18 @@ public class DriveController {
         robot.l.setPower(-power);
         robot.r.setPower(power);
         robot.lb.setPower(-power);
+        robot.rb.setPower(power);
+    }
+
+    public void setLeftPower(double power) {
+        setDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.l.setPower(power);
+        robot.lb.setPower(power);
+    }
+
+    public void setRightPower(double power) {
+        setDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.r.setPower(power);
         robot.rb.setPower(power);
     }
     /* *********************
