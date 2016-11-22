@@ -12,8 +12,7 @@ import org.firstinspires.ftc.teamcode.Drive;
  * This class contains all of the hardware variables for our robot.
  *
  * This class should be used in OpModes, as well as in libraries. Remember to always use the same instance of
- * this class - in libraries, get it from the instance of the class. Use a load() method that gets the
- * HardwarePlatform from the place it is called.
+ * this class - in libraries, get it from the instance of the class. Inherit it using the constructor.
  * */
 public class HardwarePlatform {
 

@@ -13,10 +13,14 @@ import org.gannacademy.libraries.SensorController;
 // @Disabled
 public class HardwarePlatformDemo extends LinearOpMode {
 
-    HardwarePlatform robot = new HardwarePlatform();
+    HardwarePlatform robot;
+
+    public HardwarePlatformDemo() {
+    }
 
     @Override
     public void runOpMode() throws InterruptedException {
+        robot = new HardwarePlatform();
         robot.init(hardwareMap, telemetry);
         DriveController driveController = new DriveController(robot);
         SensorController sensors = new SensorController(robot);
