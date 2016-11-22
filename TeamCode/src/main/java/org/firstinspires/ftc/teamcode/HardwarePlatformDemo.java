@@ -24,8 +24,10 @@ public class HardwarePlatformDemo extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            driveController.driveSeconds(1000, 1);
-            wait(1000);
+            driveController.driveSeconds(2000, 1);
+            Thread.sleep(1000);
+            driveController.driveSeconds(1900, -1);
+            Thread.sleep(1000);
         }
         stop();
     }
