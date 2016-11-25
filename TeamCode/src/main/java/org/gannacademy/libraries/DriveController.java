@@ -12,7 +12,7 @@ public class DriveController {
 
     public DriveController(HardwarePlatform hwPlatform) {
         robot = hwPlatform;
-        robot.telemetry.addLine("Using DriveController v1.0.0-161126");
+        robot.telemetry.addLine("Using DriveController v1.0.1-161126");
         robot.telemetry.update();
     }
 
@@ -20,11 +20,8 @@ public class DriveController {
      * DRIVING METHODS *
      *******************/
     public void drive(double power) {
-        setDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.l.setPower(power);
-        robot.r.setPower(power);
-        robot.lb.setPower(power);
-        robot.rb.setPower(power);
+        this.setLeftPower(power);
+        this.setRightPower(power);
     }
 
     public void driveSeconds(double seconds, double power) throws InterruptedException {
@@ -34,26 +31,18 @@ public class DriveController {
     }
 
     public void stopDriving() {
-        robot.l.setPower(0);
-        robot.r.setPower(0);
-        robot.lb.setPower(0);
-        robot.rb.setPower(0);
+        this.drive(0);
     }
 
     public void turnLeft(double power) {
-        setDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.l.setPower(power);
-        robot.r.setPower(-power);
-        robot.lb.setPower(power);
-        robot.rb.setPower(-power);
+        this.setLeftPower(power);
+        this.setRightPower(-power);
     }
 
     public void turnRight(double power) {
         setDriveMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.l.setPower(-power);
-        robot.r.setPower(power);
-        robot.lb.setPower(-power);
-        robot.rb.setPower(power);
+        this.setLeftPower(-power);
+        this.setRightPower(power);
     }
 
     public void setLeftPower(double power) {

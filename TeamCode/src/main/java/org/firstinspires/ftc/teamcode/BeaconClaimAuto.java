@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.archive.debug.poc;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -19,14 +19,14 @@ import org.gannacademy.libraries.SensorController;
  * to stop at appropriate distance.
  */
 @Autonomous(name = "BeaconPushStartAuto")
-public class LineFollowPoC extends LinearOpMode {
+public class BeaconClaimAuto extends LinearOpMode {
 
     HardwarePlatform robot;
     DriveController driveController;
     SensorController sensors;
     ButtonPusherFunctions pusher;
 
-    public LineFollowPoC() {
+    public BeaconClaimAuto() {
 
     }
 
@@ -38,6 +38,8 @@ public class LineFollowPoC extends LinearOpMode {
         sensors = new SensorController(robot);
         pusher = new ButtonPusherFunctions(robot);
 
+        waitForStart();;
+
         //Drives Forward until line spotted
         driveController.drive(0.65);
         while (!pusher.robotIsOnWhite()) {
@@ -45,8 +47,8 @@ public class LineFollowPoC extends LinearOpMode {
         }
         //Replace with better drive method when developed;
         driveController.driveSeconds(0.1, 0.3);
-        driveController.setLeftPower(-0.4);
-        driveController.setRightPower(0.4);
+        if (HardwarePlatform.isRed) driveController.turnLeft(0.4);
+        else driveController.turnRight(0.4);
         while (!pusher.robotIsOnWhite()) {
             Thread.sleep(20);
         }
@@ -56,11 +58,11 @@ public class LineFollowPoC extends LinearOpMode {
         this.FollowLine();
         //Sets pusher position
         pusher.setPusherPosition();
-
-        //Insert button push method here
-
-        //Drive forwards untill ultrasonic reads < 1 here
-
+        while (!pusher.isBeaconPressed()) {
+            driveController.drive(0.1);
+            Thread.sleep(40);
+        }
+        //Add code to drive back, turn 90 degrees, then rine and repeat
     }
 
     public void FollowLine() throws InterruptedException{
