@@ -26,7 +26,7 @@ public class DriveController {
 
     public void driveSeconds(double seconds, double power) throws InterruptedException {
         drive(power);
-        Thread.sleep((long) (seconds * 0.001));
+        Thread.sleep((long) (seconds * 1000));
         stopDriving();
     }
 
