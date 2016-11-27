@@ -15,36 +15,39 @@ public class ButtonPusherFunctions {
         robot.telemetry.update();
     }
 
-    public boolean robotIsOnWhite() {
+    public Boolean robotIsOnWhite() {
         return robot.eods.getLightDetected() >= 0.38;
     }
 
     public void setPusherPosition() {
         robot.button_pusher.setPosition(rest_position);
-        if (this.isSensorRed(0)) {
+        if (this.isSensorRed(0) && this.isSensorRed(0) != null) {
             robot.button_pusher.setPosition(HardwarePlatform.isRed ? beacon_left_button_pos : beacon_right_button_pos);
         }
-        else if (!this.isSensorRed(0)) {
+        else if (!this.isSensorRed(0) && this.isSensorRed(0) != null) {
             robot.button_pusher.setPosition(HardwarePlatform.isRed ? beacon_right_button_pos : beacon_left_button_pos);
         }
     }
 
-    public boolean isSensorRed(int sensorNumber) {
+    public Boolean isSensorRed(int sensorNumber) {
         int red, blue;
         String colorValues = Integer.toString(sensorNumber == 0 ? robot.beaconColorA.argb() : robot.beaconColorB.argb()) ;
         if (colorValues == "") { // this occurs when the beaconColorA changes too quickly, returns null
-            return new Boolean(null);
+            return null;
         } else { // extract the red and blue values from the string
             red = Integer.valueOf(colorValues.substring(2, 4));
             blue = Integer.valueOf(colorValues.substring(6, 8));
         }
-        boolean state = red > blue && blue != red ? true : false;
+        Boolean state = red > blue && blue != red ? true : false;
         return state;
     }
 
-    public boolean isBeaconPressed() {
-        if (HardwarePlatform.isRed && this.isSensorRed(0) && this.isSensorRed(1) ) return true;
-        else if ((!HardwarePlatform.isRed) && !(this.isSensorRed(0)) && !(this.isSensorRed(1))) return false;
-        else return false;
+    public Boolean isBeaconPressed() {
+        if (this.isSensorRed(0)!= null && this.isSensorRed(1) != null) {
+            if (HardwarePlatform.isRed && this.isSensorRed(0) && this.isSensorRed(1) ) return true;
+            else if ((!HardwarePlatform.isRed) && !(this.isSensorRed(0)) && !(this.isSensorRed(1))) return true;
+            else return false;
+        }
+        else return null;
     }
 }

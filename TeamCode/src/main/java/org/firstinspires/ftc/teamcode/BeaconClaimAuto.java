@@ -74,14 +74,14 @@ public class BeaconClaimAuto extends LinearOpMode {
         double errorDerivative = 0; //Change in error from previous error value
         double errorValue = 0; //Actual error from threshold
         double pT = 0.5; //Desired BALANCED motor power.
-        //Loop, iterates 50 times per second while distance is greater than UDS level 8
+        //Loop, iterates 50 times per second while distance is greater than button pusher poles
         while (!robot.beaconTouch.isPressed()) {
             long time = System.currentTimeMillis()+20;
             errorValue = threshold - robot.eods.getRawLightDetected(); //Error
             errorDerivative = errorValue - errorDerivative; //Change in Error
             errorIntegral += errorValue; //Running sum of error (integral)
             double uT = (kP * errorValue) + (kI*errorIntegral) + (kD*errorDerivative); //PID equation
-            if (uT > 1) uT = 1; if (uT < -1) uT = -1;
+            if (uT > 0.5) uT = 0.5; if (uT < -0.5) uT = -0.5;
             double lT = pT + uT; //Left motor power
             double rT = pT - uT; //Right motor power
             driveController.setLeftPower(lT); driveController.setRightPower(rT); //Sets power for tick
