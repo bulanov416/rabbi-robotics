@@ -99,23 +99,23 @@ public class Drive extends LinearOpMode {
             rb.setPower(l_right_drive_power);
             lb.setPower(l_left_drive_power);
 
-            if (gamepad1.left_bumper) {
+            if (gamepad1.dpad_up) {
                 lift.setPower(1);
             }
-            if (gamepad1.right_bumper) {
+            if (gamepad1.dpad_down) {
                 lift.setPower(-1);
             }
             if (gamepad1.y) {
                 lift.setPower(0);
             }
-            if (gamepad1.dpad_left) {
+            if (gamepad1.left_bumper) {
+                button_left.setPosition(0.05);
+            }
+            if (gamepad1.right_bumper) {
+                button_right.setPosition(0.95);
+            }
+            if (gamepad1.b) {
                 button_left.setPosition(0.9);
-            }
-            if (gamepad1.dpad_right) {
-                button_right.setPosition(0.9);
-            }
-            if (gamepad1.dpad_down) {
-                button_left.setPosition(0.1);
                 button_right.setPosition(0.1);
             }
 

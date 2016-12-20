@@ -98,6 +98,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 */
         manager.register("WorkingBeaconPusher", WorkingBeaconPusher.class);
         manager.register("Drive", Drive.class);
+        manager.register("REALSLIMAUTO", Autonomous.class);
 //>>>>>>> Stashed changes
         /**
          * Any manual OpMode class registrations should go here.
