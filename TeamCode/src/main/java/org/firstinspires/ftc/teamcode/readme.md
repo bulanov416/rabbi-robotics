@@ -28,15 +28,7 @@ And Autonomous OpModes start with these 2 lines:
  @Autonomous(name="Name of the Autonomous", group="AutoOps")
  @Disabled
 ```
-
-We need to **register** our OpModes so that the driver station can see them. These annotations allow
-us to do that. That `name="Name of the OpMode"` atribute gives the OpMode a name, and
-that `group="OpModes"`tag puts it in a group. Not every OpMode needs to be in a group - you'll 
-have to decide if it should be in one or not. `@Disabled` disables the OpMode - comment tha out to
-enable it.
-
-To register an OpMode for use, you need to register it in the `FtcOpModeRegister` class. There's a
-comment in there that describes how to do that.
+This code takes care of registering the OpMode - you can safely ignore the `FtcOpModeRegister` class.
 
 ## Naming conventions
 **Names are important. Without proper naming conventions, it is very hard to be organized.
