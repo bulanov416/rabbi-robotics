@@ -29,10 +29,9 @@ public class Drive extends LinearOpMode {
     DcMotor lb;
     DcMotor rb;
     DcMotor lift;
-    DcMotor cap;
-    Servo claw_servo;
-    Servo button_pusher;
-    Servo cap_deploy;
+    Servo button_left;
+    Servo button_right;
+
 
     public Drive() {}
 
@@ -81,10 +80,8 @@ public class Drive extends LinearOpMode {
             rb = hardwareMap.dcMotor.get("rb");
             lb = hardwareMap.dcMotor.get("lb");
             lift = hardwareMap.dcMotor.get("lift");
-            cap = hardwareMap.dcMotor.get("cap");
-            claw_servo = hardwareMap.servo.get("clawservo");
-            button_pusher = hardwareMap.servo.get("pusher");
-            cap_deploy = hardwareMap.servo.get("deploy");
+            button_left = hardwareMap.servo.get("bl");
+            button_right = hardwareMap.servo.get("br");
 
             r.setDirection(DcMotor.Direction.REVERSE);
             rb.setDirection(DcMotor.Direction.REVERSE);
@@ -102,31 +99,26 @@ public class Drive extends LinearOpMode {
             rb.setPower(l_right_drive_power);
             lb.setPower(l_left_drive_power);
 
-            if (gamepad1.left_bumper) {
+            if (gamepad1.dpad_up) {
                 lift.setPower(1);
             }
-            if (gamepad1.right_bumper) {
-                lift.setPower(-1);
-            }
-            if (gamepad1.dpad_up) {
-                cap_deploy.setPosition(1);
-            }
             if (gamepad1.dpad_down) {
-                cap_deploy.setPosition(0);
-            }
-            if (gamepad1.dpad_left) {
-                claw_servo.setPosition(1);
-            }
-            if (gamepad1.x) {
-                cap.setPower(1);
-            }
-            if (gamepad1.b) {
-                cap.setPower(-1);
+                lift.setPower(-1);
             }
             if (gamepad1.y) {
                 lift.setPower(0);
-                cap.setPower(0);
             }
+            if (gamepad1.left_bumper) {
+                button_left.setPosition(0.05);
+            }
+            if (gamepad1.right_bumper) {
+                button_right.setPosition(0.95);
+            }
+            if (gamepad1.b) {
+                button_left.setPosition(0.9);
+                button_right.setPosition(0.1);
+            }
+
         }
     }
 }
