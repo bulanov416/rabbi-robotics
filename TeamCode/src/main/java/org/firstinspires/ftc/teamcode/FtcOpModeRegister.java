@@ -82,24 +82,10 @@ public class FtcOpModeRegister implements OpModeRegister {
          * Only register an OpMode if it is in a testing or working state!
          */
     /*    AnnotatedOpModeRegistrar.register(manager);
-        manager.register("Drive", Drive.class); // TeleOp
-        manager.register("Four Wheel Drive", FourWheelDrive.class); // TeleOp
-        manager.register("Assisted TeleOp Button Pusher", TeleOpButtonPusher.class); // TeleOp
-//<<<<<<< Updated upstream
-        manager.register("ColorTelemetry", ColorTelemetry.class); // TeleOp
-        manager.register("UpDown", UpDown.class); // TeleOp
-        manager.register("Drive to and Push Button", WorkingBeaconPusher.class); // Autonomous
-        //Debug OpMode, remove before competition:
-//=======
-        //manager.register("Autonomous Button Pusher", AutoButtonPusher.class);
-        manager.register("ColorTelemetry", ColorTelemetry.class);
-        manager.register("UpDown", UpDown.class);
-        manager.register("Working Beacon Code", WorkingBeaconPusher.class);
-*/
+
         manager.register("WorkingBeaconPusher", WorkingBeaconPusher.class);
         manager.register("Drive", Drive.class);
         manager.register("REALSLIMAUTO", Autonomous.class);
-//>>>>>>> Stashed changes
         /**
          * Any manual OpMode class registrations should go here.
          */
