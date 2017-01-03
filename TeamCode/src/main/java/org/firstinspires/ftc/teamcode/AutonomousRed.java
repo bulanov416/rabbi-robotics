@@ -1,21 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import org.firstinspires.ftc.robotcore.external.Telemetry;
-        import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-        import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-        import com.qualcomm.robotcore.hardware.ColorSensor;
-        import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
-        import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
-        import com.qualcomm.robotcore.hardware.Servo;
-        import com.qualcomm.hardware.adafruit.BNO055IMU;
-        import com.qualcomm.robotcore.hardware.TouchSensor;
-        import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 
 
@@ -36,8 +28,6 @@ public class AutonomousRed extends LinearOpMode {
     Servo button_left;
     Servo button_right;
     Servo wall_servo;
-    //double runtime;
-    //BNO055IMU imu;
     TouchSensor touch;
 
     @Override
@@ -53,133 +43,153 @@ public class AutonomousRed extends LinearOpMode {
         color_right = hardwareMap.colorSensor.get("cr");
         r.setDirection(DcMotor.Direction.REVERSE);
         rb.setDirection(DcMotor.Direction.REVERSE);
-        //runtime = System.currentTimeMillis();
         touch = hardwareMap.touchSensor.get("t");
         wall_servo = hardwareMap.servo.get("ws");
-       /* BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        //Initiates IMU
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
-*/
-        telemetry.addData("EODS LEVEL: ", eods.getLightDetected());
-        telemetry.update();
 
         waitForStart();
-
-        wall_servo.setPosition(0.37);
-        button_right.setPosition(0.1);
-        button_left.setPosition(0.9);
-        color_left.enableLed(false);
-        color_right.enableLed(false);
-        while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
+        while (opModeIsActive()) {
+            wall_servo.setPosition(0.37);
+            button_right.setPosition(0.1);
+            button_left.setPosition(0.9);
+            color_left.enableLed(false);
+            color_right.enableLed(false);
+            while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
+                drive(0.2);
+            }
+            if (!opModeIsActive()) break;
+            stopDrive();
             drive(0.2);
-        }
-        stopDrive();
-        drive(0.2);
-        sleep(100);
-        stopDrive();
-        while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
-            setLeftPower(0.18);
-            setRightPower(-0.18);
-        }
-
-        while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
-        }
-
-        stopDrive();
-        while (!touch.isPressed()) {
-            while (eods.getLightDetected() < 0.03 && !touch.isPressed() && opModeIsActive()) {
-                setRightPower(0.14);
+            sleepOpMode(100);
+            stopDrive();
+            while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
+                setLeftPower(0.18);
+                setRightPower(-0.18);
+            }
+            if (!opModeIsActive()) break;
+            while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
+            }
+            if (!opModeIsActive()) break;
+            stopDrive();
+            while (!touch.isPressed()) {
+                while (eods.getLightDetected() < 0.03 && !touch.isPressed() && opModeIsActive()) {
+                    setRightPower(0.14);
+                }
+                if (!opModeIsActive()) break;
+                stopDrive();
+                while (eods.getLightDetected() > 0.03 && !touch.isPressed() && opModeIsActive()) {
+                    setLeftPower(0.12);
+                }
+                if (!opModeIsActive()) break;
+                stopDrive();
             }
             stopDrive();
-            while (eods.getLightDetected() > 0.03 && !touch.isPressed() && opModeIsActive()) {
-                setLeftPower(0.12);
-            }
+            if (!opModeIsActive()) break;
+            boolean colorLeftSide = isSensorRed("left");
+            //insert beacon pushing code here
+            drive(-0.12);
+            sleepOpMode(600);
+            if (!opModeIsActive()) break;
             stopDrive();
-        }
-        stopDrive();
-        boolean colorLeftSide = isSensorRed("left");
-        //insert beacon pushing code here
-        drive(-0.12);
-
-        sleep(600);
-        stopDrive();
-        wall_servo.setPosition(0.1);
-        sleep(550);
-        if (colorLeftSide) {
-            button_left.setPosition(0.05);
-        }
-        else {
-            button_right.setPosition(0.95);
-        }
-        while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
-            setRightPower(0.12);
-        }
-        stopDrive();
-        drive(0.15);
-        sleep(600);
-        stopDrive();
-        //Second Beacon
-        drive(-0.2);
-        sleep(400);
-        stopDrive();
-        wall_servo.setPosition(0.37);
-        button_right.setPosition(0.1);
-        button_left.setPosition(0.9);
-        setLeftPower(-0.18);
-        setRightPower(0.18);
-        sleep(1850);
-        while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
+            wall_servo.setPosition(0.1);
+            sleepOpMode(550);
+            if (!opModeIsActive()) break;
+            if (colorLeftSide) {
+                button_left.setPosition(0.05);
+            }
+            else {
+                button_right.setPosition(0.95);
+            }
+            while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
+                setRightPower(0.12);
+            }
+            if (!opModeIsActive()) break;
+            stopDrive();
             drive(0.15);
-        }
-        stopDrive();
-        drive(0.2);
-        sleep(100);
-        stopDrive();
-        while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
-            setLeftPower(0.18);
-            setRightPower(-0.18);
-        }
-
-        while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
-        }
-
-        stopDrive();
-        while (!touch.isPressed()) {
-            while (eods.getLightDetected() < 0.03 && !touch.isPressed() && opModeIsActive()) {
-                setRightPower(0.14);
+            sleepOpMode(600);
+            if (!opModeIsActive()) break;
+            stopDrive();
+            //Second Beacon
+            drive(-0.2);
+            sleepOpMode(400);
+            stopDrive();
+            if (!opModeIsActive()) break;
+            wall_servo.setPosition(0.37);
+            button_right.setPosition(0.1);
+            button_left.setPosition(0.9);
+            setLeftPower(-0.18);
+            setRightPower(0.18);
+            sleepOpMode(1850);
+            if (!opModeIsActive()) break;
+            while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
+                drive(0.15);
+            }
+            if (!opModeIsActive()) break;
+            stopDrive();
+            drive(0.2);
+            sleepOpMode(100);
+            stopDrive();
+            while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
+                setLeftPower(0.18);
+                setRightPower(-0.18);
+            }
+            if (!opModeIsActive()) break;
+            while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
+            }
+            if (!opModeIsActive()) break;
+            stopDrive();
+            while (!touch.isPressed()) {
+                while (eods.getLightDetected() < 0.03 && !touch.isPressed() && opModeIsActive()) {
+                    setRightPower(0.14);
+                }
+                if (!opModeIsActive()) break;
+                stopDrive();
+                while (eods.getLightDetected() > 0.03 && !touch.isPressed() && opModeIsActive()) {
+                    setLeftPower(0.12);
+                }
+                if (!opModeIsActive()) break;
+                stopDrive();
             }
             stopDrive();
-            while (eods.getLightDetected() > 0.03 && !touch.isPressed() && opModeIsActive()) {
-                setLeftPower(0.12);
-            }
+            sleepOpMode(300);
+            if (!opModeIsActive()) break;
+            boolean colorRightSide = isSensorRed("left");
+            //insert beacon pushing code here
+            drive(-0.12);
+            sleepOpMode(600);
+            if (!opModeIsActive()) break;
             stopDrive();
+            wall_servo.setPosition(0.1);
+            sleepOpMode(550);
+            if (!opModeIsActive()) break;
+            if (colorRightSide) {
+                button_left.setPosition(0.05);
+            }
+            else {
+                button_right.setPosition(0.95);
+            }
+            while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
+                setRightPower(0.12);
+            }
+            if (!opModeIsActive()) break;
+            stopDrive();
+            drive(0.15);
+            sleepOpMode(600);
+            stopDrive();
+            break;
         }
         stopDrive();
-        sleep(300);
-        boolean colorRightSide = isSensorRed("left");
-        //insert beacon pushing code here
-        drive(-0.12);
-        sleep(600);
-        stopDrive();
-        wall_servo.setPosition(0.1);
-        sleep(550);
-        if (colorRightSide) {
-            button_left.setPosition(0.05);
-        }
-        else {
-
-            button_right.setPosition(0.95);
-        }
-        while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
-            setRightPower(0.12);
-        }
-        stopDrive();
-        drive(0.15);
-        sleep(600);
-        stopDrive();
+        l.close();
+        r.close();
+        lb.close();
+        rb.close();
+        button_left.close();
+        button_right.close();
+        wall_servo.close();
+        touch.close();
+        eods.close();
+        color_left.close();
+        color_right.close();
+        stop();
     }
 
 
@@ -194,20 +204,6 @@ public class AutonomousRed extends LinearOpMode {
         drive(0);
     }
 
-    public void turnLeft(double power) {
-        l.setPower(-power);
-        lb.setPower(-power);
-        r.setPower(power);
-        rb.setPower(power);
-    }
-
-    public void turnRight(double power) {
-        l.setPower(power);
-        lb.setPower(power);
-        r.setPower(-power);
-        rb.setPower(-power);
-    }
-
     public void setLeftPower(double power) {
         l.setPower(power);
         lb.setPower(power);
@@ -218,30 +214,16 @@ public class AutonomousRed extends LinearOpMode {
         rb.setPower(power);
     }
 
-    /*
     public void sleepOpMode(double millTime) throws InterruptedException {
         double time = System.currentTimeMillis();
-        while (opModeIsActive() && System.currentTimeMillis() != time + millTime) {
-            Thread.sleep(1);
+        while (opModeIsActive() && System.currentTimeMillis() < time + millTime) {
+            this.sleep(1);
         }
     }
-    */
 
     public boolean isSensorRed(String side) {
         String left = "left";
         ColorSensor sensor = side.equalsIgnoreCase(left) ? color_left : color_right;
-        /* String colorValues = Integer.toString(sensor.argb());
-        int red, blue;
-        if (colorValues == "") { // this occurs when the color changes too quickly
-            red = 0;
-            blue = 0;
-        } else {
-            // extract the red and blue values from the string
-            red = Integer.valueOf(colorValues.substring(2, 4));
-            blue = Integer.valueOf(colorValues.substring(6, 8));
-        }
-
-        if (red == 0 || blue == 0) return false; */
         return sensor.red() > sensor.blue() ? true : false;
     }
 }
