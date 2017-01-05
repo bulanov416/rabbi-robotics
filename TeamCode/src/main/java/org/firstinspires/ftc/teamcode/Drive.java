@@ -112,7 +112,7 @@ public class Drive extends LinearOpMode {
                 button_left.setPosition(0.05);
             }
             if (gamepad1.right_bumper) {
-                button_right.setPosition(0.95);
+                button_right.setPosition(0.95 );
             }
             if (gamepad1.b) {
                 button_left.setPosition(0.9);

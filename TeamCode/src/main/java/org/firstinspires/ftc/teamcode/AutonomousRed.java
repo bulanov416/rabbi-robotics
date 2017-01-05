@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 /**
  * Created by alexbulanov on 12/19/16.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "REALSLIMAUTO")
+    @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "REALSLIMAUTO")
 public class AutonomousRed extends LinearOpMode {
 
 
@@ -48,11 +48,11 @@ public class AutonomousRed extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            wall_servo.setPosition(0.37);
+            wall_servo.setPosition(0.39);
             button_right.setPosition(0.1);
             button_left.setPosition(0.9);
-            color_left.enableLed(false);
-            color_right.enableLed(false);
+            color_left.enableLed(true);
+            color_right.enableLed(true);
             while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
                 drive(0.2);
             }
@@ -62,8 +62,8 @@ public class AutonomousRed extends LinearOpMode {
             sleepOpMode(100);
             stopDrive();
             while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
-                setLeftPower(0.18);
-                setRightPower(-0.18);
+                setLeftPower(0.2);
+                setRightPower(-0.2);
             }
             if (!opModeIsActive()) break;
             while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
@@ -84,7 +84,9 @@ public class AutonomousRed extends LinearOpMode {
             }
             stopDrive();
             if (!opModeIsActive()) break;
-            boolean colorLeftSide = isSensorRed("left");
+            telemetry.addLine("B/R : " + Integer.toString(color_right.red()) + "/" + Integer.toString(color_right.blue()));
+            telemetry.update();
+            boolean colorFirstSide = color_right.red() > color_right.blue();
             //insert beacon pushing code here
             drive(-0.12);
             sleepOpMode(600);
@@ -93,11 +95,10 @@ public class AutonomousRed extends LinearOpMode {
             wall_servo.setPosition(0.1);
             sleepOpMode(550);
             if (!opModeIsActive()) break;
-            if (colorLeftSide) {
-                button_left.setPosition(0.05);
-            }
-            else {
+            if (colorFirstSide) {
                 button_right.setPosition(0.95);
+            } else {
+                button_left.setPosition(0.05);
             }
             while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
                 setRightPower(0.12);
@@ -118,7 +119,7 @@ public class AutonomousRed extends LinearOpMode {
             button_left.setPosition(0.9);
             setLeftPower(-0.18);
             setRightPower(0.18);
-            sleepOpMode(1850);
+            sleepOpMode(1750);
             if (!opModeIsActive()) break;
             while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
                 drive(0.15);
@@ -152,7 +153,7 @@ public class AutonomousRed extends LinearOpMode {
             stopDrive();
             sleepOpMode(300);
             if (!opModeIsActive()) break;
-            boolean colorRightSide = isSensorRed("left");
+            boolean colorSecondSide = color_right.red() > color_right.blue();
             //insert beacon pushing code here
             drive(-0.12);
             sleepOpMode(600);
@@ -161,11 +162,10 @@ public class AutonomousRed extends LinearOpMode {
             wall_servo.setPosition(0.1);
             sleepOpMode(550);
             if (!opModeIsActive()) break;
-            if (colorRightSide) {
-                button_left.setPosition(0.05);
-            }
-            else {
+            if (colorSecondSide) {
                 button_right.setPosition(0.95);
+            } else {
+                button_left.setPosition(0.05);
             }
             while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
                 setRightPower(0.12);
@@ -220,12 +220,61 @@ public class AutonomousRed extends LinearOpMode {
             this.sleep(1);
         }
     }
+    public boolean isBeaconLeftRed() {
 
-    public boolean isSensorRed(String side) {
-        String left = "left";
-        ColorSensor sensor = side.equalsIgnoreCase(left) ? color_left : color_right;
-        return sensor.red() > sensor.blue() ? true : false;
+        // returns string in this format: "aarrggb". for example "1924873409"
+        String colorValues = Integer.toString(color_left.argb());
+        int red;
+        int blue;
+        telemetry.addLine(colorValues);
+        telemetry.update();
+        if (colorValues.length() < 8) { // this occurs when the color changes too quickly
+            red = 0;
+            blue = 0;
+        } else {
+            // extract the red and blue values from the string
+            red = Integer.valueOf(colorValues.substring(2, 4));
+            blue = Integer.valueOf(colorValues.substring(6, 8));
+        }
+
+        // this statement assumes that we are on the red team, and the sensor is on the left
+        return red > blue;
+    }
+    public boolean isBeaconRightRed() {
+
+        // returns string in this format: "aarrggb". for example "1924873409"
+        String colorValues = Integer.toString(color_right.argb());
+        int red;
+        int blue;
+        telemetry.addLine(colorValues);
+        telemetry.update();
+        if (colorValues.length() < 8) { // this occurs when the color changes too quickly
+            red = 0;
+            blue = 0;
+        } else {
+            // extract the red and blue values from the string
+            red = Integer.valueOf(colorValues.substring(2, 4));
+            blue = Integer.valueOf(colorValues.substring(6, 8));
+        }
+
+        // this statement assumes that we are on the red team, and the sensor is on the left
+        return red > blue;
+    }
+
+    public boolean BeaconLeftAbsRed() throws InterruptedException{
+        if (isBeaconLeftRed() && !isBeaconRightRed()) {
+            return true;
+        }
+        else if (!isBeaconLeftRed() && isBeaconRightRed()) {
+            return false;
+        }
+        else {
+            sleepOpMode(250);
+            return BeaconLeftAbsRed();
+        }
     }
 }
+
+
 
 

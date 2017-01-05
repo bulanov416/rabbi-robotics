@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,9 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 
 
 /**
-
  * Created by alexbulanov on 9/28/16.
-
  */
 
 @TeleOp(name = "Drive without Scaling")
@@ -24,12 +21,14 @@ public class DriveNoScale extends LinearOpMode {
     Servo button_left;
     Servo button_right;
 
+    float motorPowerScale = 1;
+
 
     public DriveNoScale() {}
 
     double scale_motor_power(double p_power)  {
         Range.clip(p_power, -1, 1);
-        return p_power;
+        return p_power*motorPowerScale;
     }
 
     @Override
@@ -58,10 +57,10 @@ public class DriveNoScale extends LinearOpMode {
             lb.setPower(left_drive_power);
 
             if (gamepad1.dpad_up) {
-                lift.setPower(1);
+                lift.setPower(1*motorPowerScale);
             }
             if (gamepad1.dpad_down) {
-                lift.setPower(-1);
+                lift.setPower(-1*motorPowerScale);
             }
             if (gamepad1.y) {
                 lift.setPower(0);
@@ -76,6 +75,15 @@ public class DriveNoScale extends LinearOpMode {
                 button_left.setPosition(0.9);
                 button_right.setPosition(0.1);
             }
+
+            if (gamepad1.left_stick_button && !gamepad1.right_stick_button) {
+                motorPowerScale = 0.5f;
+            }
+            else  if (gamepad1.right_stick_button && !gamepad1.left_stick_button) {
+                motorPowerScale = 1.0f;
+            }
+
+
 
         }
         l.setPower(0);
