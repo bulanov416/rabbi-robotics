@@ -39,7 +39,6 @@ public class AutonomousRedCompetition extends LinearOpMode {
         button_left = hardwareMap.servo.get("bl");
         button_right = hardwareMap.servo.get("br");
         eods = hardwareMap.opticalDistanceSensor.get("eods");
-        color_left = hardwareMap.colorSensor.get("cl");
         color_right = hardwareMap.colorSensor.get("cr");
         r.setDirection(DcMotor.Direction.REVERSE);
         rb.setDirection(DcMotor.Direction.REVERSE);
@@ -51,8 +50,7 @@ public class AutonomousRedCompetition extends LinearOpMode {
             wall_servo.setPosition(0.39);
             button_right.setPosition(0.1);
             button_left.setPosition(0.9);
-            color_left.enableLed(true);
-            color_right.enableLed(true);
+            color_right.enableLed(false);
             while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
                 drive(0.2);
             }
@@ -86,7 +84,7 @@ public class AutonomousRedCompetition extends LinearOpMode {
             if (!opModeIsActive()) break;
             telemetry.addLine("B/R : " + Integer.toString(color_right.red()) + "/" + Integer.toString(color_right.blue()));
             telemetry.update();
-            boolean colorFirstSide = color_right.red() > color_right.blue();
+            boolean colorFirstSide = RightRed();
             //insert beacon pushing code here
             drive(-0.12);
             sleepOpMode(600);
@@ -105,8 +103,8 @@ public class AutonomousRedCompetition extends LinearOpMode {
             }
             if (!opModeIsActive()) break;
             stopDrive();
-            drive(0.15);
-            sleepOpMode(600);
+            drive(0.13);
+            sleepOpMode(700);
             if (!opModeIsActive()) break;
             stopDrive();
             //Second Beacon
@@ -119,7 +117,7 @@ public class AutonomousRedCompetition extends LinearOpMode {
             button_left.setPosition(0.9);
             setLeftPower(-0.18);
             setRightPower(0.18);
-            sleepOpMode(1750);
+            sleepOpMode(1700);
             if (!opModeIsActive()) break;
             while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
                 drive(0.15);
@@ -140,7 +138,7 @@ public class AutonomousRedCompetition extends LinearOpMode {
             stopDrive();
             while (!touch.isPressed()) {
                 while (eods.getLightDetected() < 0.03 && !touch.isPressed() && opModeIsActive()) {
-                    setRightPower(0.14);
+                    setRightPower(0.17);
                 }
                 if (!opModeIsActive()) break;
                 stopDrive();
@@ -150,10 +148,14 @@ public class AutonomousRedCompetition extends LinearOpMode {
                 if (!opModeIsActive()) break;
                 stopDrive();
             }
-            stopDrive();
-            sleepOpMode(300);
+
             if (!opModeIsActive()) break;
-            boolean colorSecondSide = color_right.red() > color_right.blue();
+            boolean colorSecondSide = RightRed();
+            stopDrive();
+            setRightPower(0.17);
+            setRightPower(-0.17);
+            sleepOpMode(300);
+            stopDrive();
             //insert beacon pushing code here
             drive(-0.12);
             sleepOpMode(600);
@@ -168,12 +170,12 @@ public class AutonomousRedCompetition extends LinearOpMode {
                 button_left.setPosition(0.05);
             }
             while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
-                setRightPower(0.12);
+                setRightPower(0.17);
             }
             if (!opModeIsActive()) break;
             stopDrive();
-            drive(0.15);
-            sleepOpMode(600);
+            drive(0.13);
+            sleepOpMode(700);
             stopDrive();
             break;
         }
@@ -187,7 +189,6 @@ public class AutonomousRedCompetition extends LinearOpMode {
         wall_servo.close();
         touch.close();
         eods.close();
-        color_left.close();
         color_right.close();
         stop();
     }
@@ -220,57 +221,14 @@ public class AutonomousRedCompetition extends LinearOpMode {
             this.sleep(1);
         }
     }
-    public boolean isBeaconLeftRed() {
 
-        // returns string in this format: "aarrggb". for example "1924873409"
-        String colorValues = Integer.toString(color_left.argb());
-        int red;
-        int blue;
-        telemetry.addLine(colorValues);
-        telemetry.update();
-        if (colorValues.length() < 8) { // this occurs when the color changes too quickly
-            red = 0;
-            blue = 0;
-        } else {
-            // extract the red and blue values from the string
-            red = Integer.valueOf(colorValues.substring(2, 4));
-            blue = Integer.valueOf(colorValues.substring(6, 8));
-        }
-
-        // this statement assumes that we are on the red team, and the sensor is on the left
-        return red > blue;
-    }
-    public boolean isBeaconRightRed() {
-
-        // returns string in this format: "aarrggb". for example "1924873409"
-        String colorValues = Integer.toString(color_right.argb());
-        int red;
-        int blue;
-        telemetry.addLine(colorValues);
-        telemetry.update();
-        if (colorValues.length() < 8) { // this occurs when the color changes too quickly
-            red = 0;
-            blue = 0;
-        } else {
-            // extract the red and blue values from the string
-            red = Integer.valueOf(colorValues.substring(2, 4));
-            blue = Integer.valueOf(colorValues.substring(6, 8));
-        }
-
-        // this statement assumes that we are on the red team, and the sensor is on the left
-        return red > blue;
-    }
-
-    public boolean BeaconLeftAbsRed() throws InterruptedException{
-        if (isBeaconLeftRed() && !isBeaconRightRed()) {
-            return true;
-        }
-        else if (!isBeaconLeftRed() && isBeaconRightRed()) {
-            return false;
+    public boolean RightRed() throws InterruptedException{
+        if (color_right.red() < 200 && color_right.blue() < 200) {
+            return color_right.red() > color_right.blue();
         }
         else {
-            sleepOpMode(250);
-            return BeaconLeftAbsRed();
+            sleepOpMode(1);
+            return RightRed();
         }
     }
 }
