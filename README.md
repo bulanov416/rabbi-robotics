@@ -2,7 +2,7 @@
 All of the code for the FTC Team 4466 R.A.B.B.I
 
 
-FTC ReadMe-----------------------------------------------------------------------------------------------------------------
+FTC ReadMe-----------------------------------------------------------------------------------------------------
 
 # ftc_app
 FTC Android Studio project to create FTC Robot Controller app.
