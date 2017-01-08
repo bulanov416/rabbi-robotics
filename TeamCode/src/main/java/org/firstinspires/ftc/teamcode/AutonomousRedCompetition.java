@@ -114,7 +114,7 @@ public class AutonomousRedCompetition extends LinearOpMode {
             stopDrive();
             //Drives forward and presses button
             drive(0.13);
-            sleepOpMode(1175);
+            sleepOpMode(1525);
             if (!opModeIsActive()) break;
             stopDrive();
             //SECOND BEACON
@@ -175,10 +175,12 @@ public class AutonomousRedCompetition extends LinearOpMode {
             //Drives Back
             drive(-0.12);
             sleepOpMode(600);
+            /*
             //Left Turn, minor
             setRightPower(-0.17);
             setLeftPower(0.17);
-            sleepOpMode(300);
+            sleepOpMode(350);
+            */
             stopDrive();
             if (!opModeIsActive()) break;
             stopDrive();
@@ -194,6 +196,7 @@ public class AutonomousRedCompetition extends LinearOpMode {
             //Waits for Servos to deploy
             sleepOpMode(550);
             //Final adjustments, depending on position relative to line
+            /*
             if (eods.getLightDetected() > 0.03) {
                 while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
                     setLeftPower(0.17);
@@ -204,11 +207,12 @@ public class AutonomousRedCompetition extends LinearOpMode {
                     setRightPower(0.17);
                 }
             }
+            */
             if (!opModeIsActive()) break;
             stopDrive();
             //Drives forward, presses button
             drive(0.13);
-            sleepOpMode(1075);
+            sleepOpMode(1620);
             stopDrive();
             //Drives back
             drive(-0.13);
