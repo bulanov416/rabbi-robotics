@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,8 +12,9 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 /**
  * Created by alexbulanov on 12/19/16.
  */
-    @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Red Auto Comp")
-public class AutonomousRedCompetition extends LinearOpMode {
+    @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Blue Auto Safe")
+    @Disabled
+public class AutonomousBlueSafe extends LinearOpMode {
 
 
     DcMotor l;
@@ -58,10 +60,10 @@ public class AutonomousRedCompetition extends LinearOpMode {
             drive(0.2);
             sleepOpMode(100);
             stopDrive();
-            //Turns left onto Line
+            //Turns right onto Line
             while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
-                setLeftPower(0.2);
-                setRightPower(-0.2);
+                setRightPower(0.2);
+                setLeftPower(-0.2);
             }
             if (!opModeIsActive()) break;
             //Turns until past Line to follow Left edge of Line
@@ -72,12 +74,12 @@ public class AutonomousRedCompetition extends LinearOpMode {
             //Wiggle Line-Follower
             while (!touch.isPressed()) {
                 while (eods.getLightDetected() < 0.03 && !touch.isPressed() && opModeIsActive()) {
-                    setRightPower(0.14);
+                    setLeftPower(0.14);
                 }
                 if (!opModeIsActive()) break;
                 stopDrive();
                 while (eods.getLightDetected() > 0.03 && !touch.isPressed() && opModeIsActive()) {
-                    setLeftPower(0.12);
+                    setRightPower(0.12);
                 }
                 if (!opModeIsActive()) break;
                 stopDrive();
@@ -97,17 +99,17 @@ public class AutonomousRedCompetition extends LinearOpMode {
             wall_servo.setPosition(0.1);
             if (!opModeIsActive()) break;
             //Deploys pusher servos
-            if (!colorFirstSide) {
+            if (colorFirstSide) {
                 button_right.setPosition(0.95);
             } else {
                 button_left.setPosition(0.05);
             }
             //Waits for servos to move
             sleepOpMode(550);
-            //Turns and moves forward until crosses left edge of Line
+            //Turns and moves forward until crosses right edge of Line
             /*
             while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
-                setRightPower(0.12);
+                setLeftPower(0.12);
             }
             */
             if (!opModeIsActive()) break;
@@ -127,9 +129,9 @@ public class AutonomousRedCompetition extends LinearOpMode {
             wall_servo.setPosition(0.37);
             button_right.setPosition(0.1);
             button_left.setPosition(0.9);
-            //Right turn
-            setLeftPower(-0.18);
-            setRightPower(0.18);
+            //Left turn
+            setRightPower(-0.18);
+            setLeftPower(0.18);
             sleepOpMode(1550);
             if (!opModeIsActive()) break;
             //Drives until second Line
@@ -142,10 +144,10 @@ public class AutonomousRedCompetition extends LinearOpMode {
             drive(0.2);
             sleepOpMode(100);
             stopDrive();
-            //Turns left until encounters Line
+            //Turns right until encounters Line
             while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
-                setLeftPower(0.18);
-                setRightPower(-0.18);
+                setRightPower(0.18);
+                setLeftPower(-0.18);
             }
             if (!opModeIsActive()) break;
             //Continues until passes Line
@@ -156,12 +158,12 @@ public class AutonomousRedCompetition extends LinearOpMode {
             //Wiggle Line-Follower
             while (!touch.isPressed()) {
                 while (eods.getLightDetected() < 0.03 && !touch.isPressed() && opModeIsActive()) {
-                    setRightPower(0.17);
+                    setLeftPower(0.17);
                 }
                 if (!opModeIsActive()) break;
                 stopDrive();
                 while (eods.getLightDetected() > 0.03 && !touch.isPressed() && opModeIsActive()) {
-                    setLeftPower(0.12);
+                    setRightPower(0.12);
                 }
                 if (!opModeIsActive()) break;
                 stopDrive();
@@ -175,9 +177,9 @@ public class AutonomousRedCompetition extends LinearOpMode {
             //Drives Back
             drive(-0.12);
             sleepOpMode(600);
-            //Left Turn, minor
-            setRightPower(-0.17);
-            setLeftPower(0.17);
+            //Right Turn, minor
+            setLeftPower(-0.17);
+            setRightPower(0.17);
             sleepOpMode(300);
             stopDrive();
             if (!opModeIsActive()) break;
@@ -186,7 +188,7 @@ public class AutonomousRedCompetition extends LinearOpMode {
             wall_servo.setPosition(0.1);
             if (!opModeIsActive()) break;
             //Deploys button pushers
-            if (!colorSecondSide) {
+            if (colorSecondSide) {
                 button_right.setPosition(0.95);
             } else {
                 button_left.setPosition(0.05);
@@ -196,12 +198,12 @@ public class AutonomousRedCompetition extends LinearOpMode {
             //Final adjustments, depending on position relative to line
             if (eods.getLightDetected() > 0.03) {
                 while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
-                    setLeftPower(0.17);
+                    setRightPower(0.17);
                 }
             }
             else {
                 while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
-                    setRightPower(0.17);
+                    setLeftPower(0.17);
                 }
             }
             if (!opModeIsActive()) break;

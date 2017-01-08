@@ -85,7 +85,7 @@ public class AutonomousBlueCompetition extends LinearOpMode {
             stopDrive();
             if (!opModeIsActive()) break;
             //Gets First's Beacon color, true if red, false if blue
-            boolean colorFirstSide = RightRed();
+            boolean colorFirstSide = color_right.red() > color_right.blue();
             telemetry.addLine("Color Right First: " + Boolean.toString(colorFirstSide));
             telemetry.update();
             //Drives back from Beacon
@@ -105,14 +105,16 @@ public class AutonomousBlueCompetition extends LinearOpMode {
             //Waits for servos to move
             sleepOpMode(550);
             //Turns and moves forward until crosses right edge of Line
+            /*
             while (eods.getLightDetected() > 0.03 && opModeIsActive()) {
                 setLeftPower(0.12);
             }
+            */
             if (!opModeIsActive()) break;
             stopDrive();
             //Drives forward and presses button
             drive(0.13);
-            sleepOpMode(700);
+            sleepOpMode(1175);
             if (!opModeIsActive()) break;
             stopDrive();
             //SECOND BEACON
@@ -128,7 +130,7 @@ public class AutonomousBlueCompetition extends LinearOpMode {
             //Left turn
             setRightPower(-0.18);
             setLeftPower(0.18);
-            sleepOpMode(1700);
+            sleepOpMode(1550);
             if (!opModeIsActive()) break;
             //Drives until second Line
             while (eods.getLightDetected() < 0.03 && opModeIsActive()) {
@@ -166,8 +168,8 @@ public class AutonomousBlueCompetition extends LinearOpMode {
             }
             if (!opModeIsActive()) break;
             //Gets Second Beacon right color, true if red
-            boolean colorSecondSide = RightRed();
-            telemetry.addLine("Color Right Second: " + Boolean.toString(colorFirstSide));
+            boolean colorSecondSide = color_right.red() > color_right.blue();
+            telemetry.addLine("Color Right Second: " + Boolean.toString(colorSecondSide));
             telemetry.update();
             stopDrive();
             //Drives Back
@@ -206,7 +208,7 @@ public class AutonomousBlueCompetition extends LinearOpMode {
             stopDrive();
             //Drives forward, presses button
             drive(0.13);
-            sleepOpMode(700);
+            sleepOpMode(1075);
             stopDrive();
             //Drives back
             drive(-0.13);
@@ -275,6 +277,8 @@ public class AutonomousBlueCompetition extends LinearOpMode {
         }
         else {
             sleepOpMode(150);
+            telemetry.addLine("No Agreement");
+            telemetry.update();
             return RightRed();
         }
     }
