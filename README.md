@@ -1,2 +1,3 @@
-# rabbi-robotics
-All of the code for the FTC Team 4466 R.A.B.B.I
+# 4466 RABBI - Our Code
+
+The official repository for the FTC team 4466 RABBI.
