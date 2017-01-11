@@ -1,3 +1,4 @@
-# 4466 RABBI - Our Code
+# No Longer Active
 
-The official repository for the FTC team 4466 RABBI.
+This repository has been shut down. You can find us at:
+# github.com/4466rabbi
